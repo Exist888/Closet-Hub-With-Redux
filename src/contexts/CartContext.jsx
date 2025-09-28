@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo, useCallback } from "react";
+import { createContext, useState, useMemo, useCallback, useReducer } from "react";
 
 function addCartItem(cartItems, productToAdd) {
     // Check whether current array includes product to add
@@ -51,17 +51,52 @@ function decrementCartItem(cartItems, productToDecrement) {
     return updatedCartItems;
 }
 
-export const CartContext = createContext({
-    cartItems: [],
-    cartCount: 0,
-    cartTotalPrice: 0,
-    addItemToCart: () => {},
-    removeItemFromCart: () => {},
-    decrementItemCount: () => {},
-});
+// FOR REDUCER: Replace with simple createContext call without params
+// export const CartContext = createContext({
+//     cartItems: [],
+//     cartCount: 0,
+//     cartTotalPrice: 0,
+//     addItemToCart: () => {},
+//     removeItemFromCart: () => {},
+//     decrementItemCount: () => {},
+// });
+export const CartContext = createContext();
+
+// FOR REDUCER: Define action types - names for how initial state will be modified
+export const CART_ACTION_TYPES = {
+    ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
+    REMOVE_ITEM_FROM_CART: "REMOVE_ITEM_FROM_CART",
+    DECREMENT_ITEM_FROM_CART: "DECREMENT_ITEM_FROM_CART"
+} 
+
+// FOR REDUCER: Define initial state object
+const INITIAL_STATE = {
+    cartItems: []
+};
+
+// FOR REDUCER: Create the reducer that defines conditional updates to state
+// And call the functions that make updates to initial state 
+function cartReducer (state, action) {
+    const { type, payload } = action;
+
+    switch(type) {
+        case CART_ACTION_TYPES.ADD_ITEM_TO_CART:
+            return { cartItems: addCartItem(state.cartItems, payload) }; 
+        case CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART:
+            return { cartItems: removeCartItem(state.cartItems, payload) };
+        case CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART:
+            return { cartItems: decrementCartItem(state.cartItems, payload) };
+        default:
+            throw new Error(`Unhandled type ${type} in cartReducer.`);
+    }
+}
 
 export function CartProvider({ children }) {
-    const [cartItems, setCartItems] = useState([]);
+    // const [cartItems, setCartItems] = useState([]);
+    // FOR REDUCER: Replace useState with useReducer
+    const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
+    // FOR REDUCER: Destructure value from state that will be updated
+    const { cartItems } = state;
 
     // Replace useEffect with useMemo since cartCount is a derived value
     const cartCount = useMemo(() => {
@@ -79,17 +114,21 @@ export function CartProvider({ children }) {
         }, 0);
     }, [cartItems]);
 
-    // Implement use callback on these function so React does not need to re-compute on each render
+    // FOR REDUCER: replace state setter function with dispatch of the actions that update state
+    // Implement useCallback on these functions so React does not need to re-compute on each render
     const addItemToCart = useCallback((productToAdd) => {
-        setCartItems((cartItems) => addCartItem(cartItems, productToAdd));
+        // setCartItems((cartItems) => addCartItem(cartItems, productToAdd));
+        dispatch({ type: CART_ACTION_TYPES.ADD_ITEM_TO_CART, payload: productToAdd });
     }, []);
 
     const removeItemFromCart = useCallback((productToRemove) => {
-        setCartItems((cartItems) => removeCartItem(cartItems, productToRemove));
+        // setCartItems((cartItems) => removeCartItem(cartItems, productToRemove));
+        dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, payload: productToRemove });
     }, []);
 
     const decrementItemCount = useCallback((productToDecrement) => {
-        setCartItems((cartItems) => decrementCartItem(cartItems, productToDecrement));
+        // setCartItems((cartItems) => decrementCartItem(cartItems, productToDecrement));
+        dispatch({ type: CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, payload: productToDecrement })
     }, []);
 
     // Implement useMemo on this object so React can store values until they change
