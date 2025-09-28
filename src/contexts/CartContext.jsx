@@ -1,4 +1,5 @@
 import { createContext, useState, useMemo, useCallback, useReducer } from "react";
+import { createAction } from "../utils/reducer/reducerUtils.js";
 
 function addCartItem(cartItems, productToAdd) {
     // Check whether current array includes product to add
@@ -118,17 +119,20 @@ export function CartProvider({ children }) {
     // Implement useCallback on these functions so React does not need to re-compute on each render
     const addItemToCart = useCallback((productToAdd) => {
         // setCartItems((cartItems) => addCartItem(cartItems, productToAdd));
-        dispatch({ type: CART_ACTION_TYPES.ADD_ITEM_TO_CART, payload: productToAdd });
+        // dispatch({ type: CART_ACTION_TYPES.ADD_ITEM_TO_CART, payload: productToAdd });
+        dispatch(createAction(CART_ACTION_TYPES.ADD_ITEM_TO_CART, productToAdd));
     }, []);
 
     const removeItemFromCart = useCallback((productToRemove) => {
         // setCartItems((cartItems) => removeCartItem(cartItems, productToRemove));
-        dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, payload: productToRemove });
+        // dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, payload: productToRemove });
+        dispatch(createAction(CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, productToRemove));
     }, []);
 
     const decrementItemCount = useCallback((productToDecrement) => {
         // setCartItems((cartItems) => decrementCartItem(cartItems, productToDecrement));
-        dispatch({ type: CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, payload: productToDecrement })
+        // dispatch({ type: CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, payload: productToDecrement });
+        dispatch(createAction(CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, productToDecrement));
     }, []);
 
     // Implement useMemo on this object so React can store values until they change

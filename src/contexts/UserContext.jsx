@@ -2,6 +2,7 @@
 // I am using this file to practice using a reducer before moving on to more complex state management
 import { createContext, useState, useEffect, useReducer } from "react";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../services/firebase/firebase.js";
+import { createAction } from "../utils/reducer/reducerUtils.js";
 
 // Use Context to capture these values from other components
 // Initialize to null since we don't have the user object yet
@@ -58,7 +59,8 @@ export function UserProvider({ children }) {
     // FOR REDUCER * Replaces State Setter Function:
     // Create the action that updates the user to current payload when correct action type is passed in
     function setCurrentUser(user) {
-        dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
+        // dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
+        dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
     }
 
     useEffect(() => {
