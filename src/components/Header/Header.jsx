@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useRef, useContext } from "react";
 import { useSelector } from "react-redux"; // For Redux refactor, replace useContext with useSelector
 // import { UserContext } from "../../contexts/UserContext.jsx";
+import { selectCurrentUser } from "../../store/user/userSelector.js";
 import { signOutUser } from "../../services/firebase/firebase.js";
 import { CartIcon } from "../../components/CartIcon/CartIcon.jsx";
 import { CartDropdown } from "../../components/CartDropdown/CartDropdown.jsx";
@@ -16,10 +17,7 @@ export function Header() {
     // const { currentUser } = useContext(UserContext);
 
     // For Redux refactor, replace user context with useSelector
-    // Argument for state param comes from Redux global state defined in store / rootReducer
-    const currentUser = useSelector((state) => {
-        return state.user.currentUser;
-    });
+    const currentUser = useSelector(selectCurrentUser);
 
     function toggleDropdown() {
         setIsDropdownClicked(!isDropdownClicked);

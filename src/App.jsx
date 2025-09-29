@@ -8,9 +8,11 @@ import { Auth } from "./routes/Auth/Auth.jsx";
 import { Checkout } from "./routes/Checkout/Checkout.jsx";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop.jsx";
 import { onAuthStateChangedListener, 
-    createUserDocumentFromAuth 
+    createUserDocumentFromAuth,
+    getCategoriesAndDocuments 
 } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userAction.js";
+import { setCategoriesMap } from "./store/categories/categoriesAction.js";
 import "./App.scss";
 
 export function App() {
@@ -28,6 +30,14 @@ export function App() {
 
         // Stop listener on unmount
         return unsubscribe;
+    }, []);
+
+    useEffect(() => {
+        async function getCategoriesMap() {
+            const categories = await getCategoriesAndDocuments();
+            dispatch(setCategoriesMap(categories));
+        }
+        getCategoriesMap();
     }, []);
 
     return (

@@ -1,6 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { CategoriesContext } from "../../contexts/CategoriesContext.jsx";
+import { useSelector } from "react-redux";
+// import { CategoriesContext } from "../../contexts/CategoriesContext.jsx";
+import { selectCategoriesMap } from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
 import "./CategoryPage.scss";
 
@@ -8,7 +10,11 @@ export function CategoryPage() {
     // Destructure category from the current url param object
     const { category } = useParams();
     // Destructure the categoriesMap object from context (top-level keys match our category params)
-    const { categoriesMap } = useContext(CategoriesContext);
+    // const { categoriesMap } = useContext(CategoriesContext);
+
+    // For Redux refactor, replace categoriers context with useSelector
+    const categoriesMap = useSelector(selectCategoriesMap);
+
     // Find the values in categoriesMap that are nested in the key that matches our current category param
     // Assign these values to the initial products state
     const [products, setProducts] = useState(categoriesMap[category]);
