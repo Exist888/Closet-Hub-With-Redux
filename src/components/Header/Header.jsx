@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useContext } from "react";
-import { useSelector } from "react-redux"; // For Redux refactor, replace useContext with useSelector
-// import { UserContext } from "../../contexts/UserContext.jsx";
-import { selectCurrentUser } from "../../store/user/userSelector.js";
+import { useState, useRef } from "react";
+import { useSelector } from "react-redux"; // For Redux, replace useContext with useSelector
+import { selectCurrentUser } from "../../store/user/userSelector.js"; // Returns current state from Redux
 import { signOutUser } from "../../services/firebase/firebase.js";
 import { CartIcon } from "../../components/CartIcon/CartIcon.jsx";
 import { CartDropdown } from "../../components/CartDropdown/CartDropdown.jsx";
@@ -13,10 +12,8 @@ export function Header() {
     const [isDropdownClicked, setIsDropdownClicked] = useState(false);
     // Set up ref for CartIcon where it will be assigned using forwardRef so it can be sent to a sibling
     const cartIconRef = useRef(null);
-    // Destructure currentUser state from user context
-    // const { currentUser } = useContext(UserContext);
 
-    // For Redux refactor, replace user context with useSelector
+    // Get current user state from Redux store
     const currentUser = useSelector(selectCurrentUser);
 
     function toggleDropdown() {

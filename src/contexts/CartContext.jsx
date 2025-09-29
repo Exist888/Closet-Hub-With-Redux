@@ -52,15 +52,6 @@ function decrementCartItem(cartItems, productToDecrement) {
     return updatedCartItems;
 }
 
-// FOR REDUCER: Replace with simple createContext call without params
-// export const CartContext = createContext({
-//     cartItems: [],
-//     cartCount: 0,
-//     cartTotalPrice: 0,
-//     addItemToCart: () => {},
-//     removeItemFromCart: () => {},
-//     decrementItemCount: () => {},
-// });
 export const CartContext = createContext();
 
 // FOR REDUCER: Define action types - names for how initial state will be modified
@@ -93,7 +84,6 @@ function cartReducer (state, action) {
 }
 
 export function CartProvider({ children }) {
-    // const [cartItems, setCartItems] = useState([]);
     // FOR REDUCER: Replace useState with useReducer
     const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
     // FOR REDUCER: Destructure value from state that will be updated
@@ -118,20 +108,14 @@ export function CartProvider({ children }) {
     // FOR REDUCER: replace state setter function with dispatch of the actions that update state
     // Implement useCallback on these functions so React does not need to re-compute on each render
     const addItemToCart = useCallback((productToAdd) => {
-        // setCartItems((cartItems) => addCartItem(cartItems, productToAdd));
-        // dispatch({ type: CART_ACTION_TYPES.ADD_ITEM_TO_CART, payload: productToAdd });
         dispatch(createAction(CART_ACTION_TYPES.ADD_ITEM_TO_CART, productToAdd));
     }, []);
 
     const removeItemFromCart = useCallback((productToRemove) => {
-        // setCartItems((cartItems) => removeCartItem(cartItems, productToRemove));
-        // dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, payload: productToRemove });
         dispatch(createAction(CART_ACTION_TYPES.REMOVE_ITEM_FROM_CART, productToRemove));
     }, []);
 
     const decrementItemCount = useCallback((productToDecrement) => {
-        // setCartItems((cartItems) => decrementCartItem(cartItems, productToDecrement));
-        // dispatch({ type: CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, payload: productToDecrement });
         dispatch(createAction(CART_ACTION_TYPES.DECREMENT_ITEM_FROM_CART, productToDecrement));
     }, []);
 

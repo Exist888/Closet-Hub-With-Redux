@@ -4,12 +4,6 @@ import { createContext, useState, useEffect, useReducer } from "react";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../services/firebase/firebase.js";
 import { createAction } from "../utils/reducer/reducerUtils.js";
 
-// Use Context to capture these values from other components
-// Initialize to null since we don't have the user object yet
-// export const UserContext = createContext({
-//     currentUser: null,
-//     setCurrentUser: () => null
-// });
 export const UserContext = createContext();
 
 // FOR REDUCER *:
@@ -45,8 +39,6 @@ function userReducer(state, action) {
 }
 
 export function UserProvider({ children }) {
-    // const [currentUser, setCurrentUser] = useState(null);
-
     // FOR REDUCER * Replaces State:
     // Replace useState (above) with useReducer that sets initial state and action that updates state
     const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
@@ -59,7 +51,6 @@ export function UserProvider({ children }) {
     // FOR REDUCER * Replaces State Setter Function:
     // Create the action that updates the user to current payload when correct action type is passed in
     function setCurrentUser(user) {
-        // dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user });
         dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
     }
 

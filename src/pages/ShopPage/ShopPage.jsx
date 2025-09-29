@@ -1,16 +1,11 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { CategoriesContext } from "../../contexts/CategoriesContext.jsx";
 import { selectCategoriesMap } from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
 import "./ShopPage.scss";
 
 export function ShopPage() {
-    // Destructure shop categories object from context
-    // const { categoriesMap } = useContext(CategoriesContext);
-
-    // For Redux refactor, replace categoriers context with useSelector
+    // Get current categories map state from Redux store
     const categoriesMap = useSelector(selectCategoriesMap);
 
     // Create an array of keys from the categories object so we can map

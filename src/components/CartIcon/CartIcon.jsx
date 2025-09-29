@@ -1,9 +1,9 @@
-// Use forward Ref because we will pass this ref into a sibling component via the Header parent
 import { useContext, forwardRef } from "react";
 import { CartContext } from "../../contexts/CartContext.jsx";
 import ShoppingBag from "../../assets/shopping-bag.svg?react";
 import "./CartIcon.scss";
 
+// Use forwardRef and inner component because we will pass this into a sibling via the Header parent
 export function CartIconInner({ toggleDropdown, isDropdownClicked }, ref) {
     const { cartCount } = useContext(CartContext);
 

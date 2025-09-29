@@ -10,8 +10,8 @@ const BUTTON_CLASSES = {
 }
 
 export function Button({ children, buttonClass = "signIn", ...otherProps}) {
-    // Use dynamic key to conditionally add class based on button type
-    // Children passes in text and otherProps handles all other button properties
+    // Use dynamic key to conditionally include class based on button type
+    // Children prop passes in text while otherProps handles all other button props
     const mappedClass = BUTTON_CLASSES[buttonClass] || "";
     return (
         <button 
