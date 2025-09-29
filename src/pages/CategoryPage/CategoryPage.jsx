@@ -33,14 +33,21 @@ export function CategoryPage() {
         );
     });
 
+    // Create an array of keys from the categories object so we can map
+    const categoryKeys = Object.keys(categoriesMap);
+    // Ensure url param matches a real category key before rendering text
+    const categoryText = categoryKeys.includes(category) && `All ${category}`;
+
     return (
-        <section className="shop-section elements-container">
-            <div className="page-title-container category-page-title-container">
-                <h1>All {category}</h1>
-            </div>
-            <div className="category-container">
-                {categoryProductsJsx && categoryProductsJsx}
-            </div>
-        </section>
+        categoryText && (
+            <section className="shop-section elements-container">
+                <div className="page-title-container category-page-title-container">
+                    <h1>{categoryText}</h1>
+                </div>
+                <div className="category-container">
+                    {categoryProductsJsx && categoryProductsJsx}
+                </div>
+            </section>
+        )
     );
 }
