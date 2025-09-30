@@ -1,29 +1,29 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategoriesMap } from "../../store/categories/categoriesSelector.js";
+import { selectCategories } from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
 import "./ShopPage.scss";
 
 export function ShopPage() {
-    // Get current categories map state from Redux store
-    const categoriesMap = useSelector(selectCategoriesMap);
+    // Get the transformed categories object (keyed by category title) from Redux store via selector
+    const categoriesObject = useSelector(selectCategories);
 
-    // Create an array of keys from the categories object so we can map
-    const categoryKeys = Object.keys(categoriesMap);
+    // Extract category titles (object keys) for iteration
+    const categoryKeys = Object.keys(categoriesObject);
 
-    // Map through the array of title keys in the category object
+    // Map over each category title to render a preview of products
     const categoriesAndProductsJsx = categoryKeys.map((title) => {
-        // Find the first four products inside of each title
-        const categoryPreviewsArr = categoriesMap[title].slice(0, 4);
+        // Grab the first four products for the current category
+        const categoryPreviewsArr = categoriesObject[title].slice(0, 4);
 
-        // Map through the products in each title and pass values into the Product Card component
+        // Map over the product previews to render individual ProductCard components
         const categoryProductsJsx = categoryPreviewsArr.map((product) => {
             return (
                 <ProductCard key={product.id} product={product}/>
             );
         });
 
-        // Return jsx for each category including the Product Card components
+        // Return JSX for the category section, including title link and product previews
         return (
             <div key={title}>
                 <Link className="category-link" to={title}>

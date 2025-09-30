@@ -73,19 +73,15 @@ export async function getCategoriesAndDocuments() {
     const q = query(collectionRef);
     // Fetch all documents from the collection
     const querySnapshot = await getDocs(q);
-    // Get the array of document snapshots
+    // Get raw document snapshots from the query (as an array)
     const docSnapshots = querySnapshot.docs;
-    // Convert the docs array into one object where key = category title & value = items
-    const categoriesMap = docSnapshots.reduce((acc, docSnapshot) => {
-        // Destructure title and items from the document data
-        const { title, items } = docSnapshot.data();
-        // Insert lowercase title as key in accumulator object and assign items array as value
-        acc[title.toLowerCase()] = items;
-        // Return the updated accumulator object
-        return acc;
-    }, {});
-    // Return the final object
-    return categoriesMap;
+
+    // FOR REDUX: Return an array of plain JS objects extracted from document snapshots
+    const categoryObjectsArray = docSnapshots.map((docSnapshot) => {
+        return docSnapshot.data();
+    });
+
+    return categoryObjectsArray;
 }
 
 // Create a user document in Firestore from authenticated user data

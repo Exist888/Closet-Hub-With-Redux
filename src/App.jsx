@@ -12,7 +12,7 @@ import { onAuthStateChangedListener,
     getCategoriesAndDocuments 
 } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userAction.js";
-import { setCategoriesMap } from "./store/categories/categoriesAction.js";
+import { setCategories } from "./store/categories/categoriesAction.js";
 import "./App.scss";
 
 export function App() {
@@ -33,11 +33,11 @@ export function App() {
     }, []);
 
     useEffect(() => {
-        async function getCategoriesMap() {
-            const categories = await getCategoriesAndDocuments();
-            dispatch(setCategoriesMap(categories));
+        async function getCategories() {
+            const categoryObjectsArray = await getCategoriesAndDocuments();
+            dispatch(setCategories(categoryObjectsArray));
         }
-        getCategoriesMap();
+        getCategories();
     }, []);
 
     return (

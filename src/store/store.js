@@ -6,12 +6,11 @@ const middleWares = [logger];
 
 // Enable redux devtools extension if available
 // Clean up later for production:
+const composeEnhancer = (
+    (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+);
 
-// const composeEnhancer = (
-//     (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
-// );
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
-
-// 1) Set up Redux store - NOTE: actions are dispatched in App.jsx
+// 1) Set up Redux store - actions are dispatched in App.jsx, store is passed into Provider in index.jsx 
 export const store = createStore(rootReducer, undefined, composedEnhancers);

@@ -1,37 +1,33 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategoriesMap } from "../../store/categories/categoriesSelector.js";
+import { selectCategories } from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
 import "./CategoryPage.scss";
 
 export function CategoryPage() {
+    const [products, setProducts] = useState([]);
+
     // Destructure category from current url param object - same variable name assigned in shop route
     const { category } = useParams();
 
-    // Get current categories map state from Redux store
-    const categoriesMap = useSelector(selectCategoriesMap);
+    // Get the transformed categories object (keyed by category title) from Redux store via selector
+    const categoriesObject = useSelector(selectCategories);
 
-    // Find the values in categoriesMap that are nested in the key that matches our current category param
-    // Assign these values to the initial products state
-    const [products, setProducts] = useState(categoriesMap[category]);
-
-    // Set products state when category param or categoriesMap changes
+    // Set products state when category param or categoriesObject changes
     useEffect(() => {
-        setProducts(categoriesMap[category]);
-    }, [category, categoriesMap]);
+        // Use dynamic key to lookup products that match title in param and assign to products state
+        setProducts(categoriesObject[category] || []);
+    }, [category, categoriesObject]);
 
-    // If products do not exist yet, map over an empty array to avoid errors
-    const productsArray = products || [];
-
-    const categoryProductsJsx = productsArray.map((product) => {
+    const categoryProductsJsx = products.map((product) => {
         return (
             <ProductCard key={product.id} product={product}/>
         );
     });
 
-    // Create an array of keys from the categories object so we can map
-    const categoryKeys = Object.keys(categoriesMap);
+    // Get category titles (keys) from the categories object for display
+    const categoryKeys = Object.keys(categoriesObject);
     // Ensure url param matches a real category key before rendering text
     const categoryText = categoryKeys.includes(category) && `All ${category}`;
 
@@ -42,7 +38,7 @@ export function CategoryPage() {
                     <h1>{categoryText}</h1>
                 </div>
                 <div className="category-container">
-                    {categoryProductsJsx && categoryProductsJsx}
+                    {categoryProductsJsx }
                 </div>
             </section>
         )
