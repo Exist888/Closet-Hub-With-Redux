@@ -1,12 +1,12 @@
 // While state management in this file is not complex enough to require useReducer,
 // I am using this file to practice using a reducer before moving on to more complex state management
-import { createContext, useState, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../services/firebase/firebase.js";
 import { createAction } from "../utils/reducer/reducerUtils.js";
 
 export const UserContext = createContext();
 
-// FOR REDUCER *:
+// FOR REDUCER:
 // Create an object that defines acceptable types to be passed into the reducer
 // Usually for multiple types
 // Using constants avoids hard-coded strings and helps catch typos early
@@ -14,13 +14,13 @@ export const USER_ACTION_TYPES = {
     SET_CURRENT_USER: "SET_CURRENT_USER"
 };
 
-// FOR REDUCER * Initial State:
+// FOR REDUCER:
 // Set initial state as an object here rather than using useState
 const INITIAL_STATE = {
     currentUser: null
 };
 
-// FOR REDUCER *:
+// FOR REDUCER:
 // Create the reducer function for this specific context
 // Always takes in state and action as parameters
 function userReducer(state, action) {
@@ -39,8 +39,8 @@ function userReducer(state, action) {
 }
 
 export function UserProvider({ children }) {
-    // FOR REDUCER * Replaces State:
-    // Replace useState (above) with useReducer that sets initial state and action that updates state
+    // FOR REDUCER: 
+    // Replace useState with useReducer that sets initial state and action that updates state
     const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
     // Destructure currentUser from state - state still handles currentUser
     const { currentUser } = state;
@@ -48,8 +48,8 @@ export function UserProvider({ children }) {
     // Wrap user and setter function in object to pass into Provider
     const value = { currentUser, setCurrentUser };
 
-    // FOR REDUCER * Replaces State Setter Function:
-    // Create the action that updates the user to current payload when correct action type is passed in
+    // FOR REDUCER: 
+    // Create action (replace setter function) that updates user state when correct action type is passed in
     function setCurrentUser(user) {
         dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
     }

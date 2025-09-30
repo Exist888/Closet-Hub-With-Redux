@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo, useCallback, useReducer } from "react";
+import { createContext, useMemo, useCallback, useReducer } from "react";
 import { createAction } from "../utils/reducer/reducerUtils.js";
 
 function addCartItem(cartItems, productToAdd) {
