@@ -17,10 +17,13 @@ export function CategoryPage() {
     // Set products state when category param or categoriesObject changes
     useEffect(() => {
         // Use dynamic key to lookup products that match title in param and assign to products state
-        setProducts(categoriesObject[category] || []);
+        setProducts(categoriesObject[category]);
     }, [category, categoriesObject]);
 
-    const categoryProductsJsx = products.map((product) => {
+    // If products do not exist yet, map over an empty array to avoid errors
+    const productsArray = products || [];
+
+    const categoryProductsJsx = productsArray.map((product) => {
         return (
             <ProductCard key={product.id} product={product}/>
         );

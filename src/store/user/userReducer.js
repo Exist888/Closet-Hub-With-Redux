@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 // 3) User reducer that takes in the state and the action that updates state
 // Replaces what we used to do in React state with initial state and setter function
 // In Redux, we assign a default value to state since there's no useReducer hook providing it
-export function userReducer(state = INITIAL_STATE, action) {
+export function userReducer(state = INITIAL_STATE, action = {}) {
     // All reducers have a type and optional payload
     const { type, payload } = action;
 
