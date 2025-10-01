@@ -1,31 +1,30 @@
 import { compose, legacy_createStore as createStore, applyMiddleware } from "redux";
-// import { logger } from "redux-logger";
+import { logger } from "redux-logger";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./rootReducer.js";
 
-const loggerMiddleWare = (store) => (next) => (action) => {
-    if (!action.type) {
-        return next(action);
-    }
-
-    console.log("type: ", action.type);
-    console.log("payload: ", action.payload);
-    console.log("current state: ", store.getState());
-
-    next(action);
-
-    console.log("next state: ", store.getState());
-}
-
-const middleWares = [loggerMiddleWare];
+const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(Boolean);
 
 // Enable redux devtools extension if available - Clean up later for production:
-// const composeEnhancer = (
-//     (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
-// );
+const composeEnhancer = (
+    (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+);
 
-// const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+// Create persist configuration object (blaclist user as Firebase handles persist for user)
+const persistConfig = {
+    key: "root",
+    storage: storage,
+    blacklist: ["user"]
+}
 
-// 1) Set up Redux store - store is passed into Provider in index.jsx, actions are dispatched in App.jsx
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+// Pass rootReducer into persistedReducer and pass new persistedReducer into store
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// STORE SETUP: 1) Set up Redux store - pass into Provider in index.jsx, dispatch actions in components
+export const store = createStore(persistedReducer, undefined, composedEnhancers);
+
+// Pass persistor as prop into PersistGate in index.jsx
+export const persistor = persistStore(store);
