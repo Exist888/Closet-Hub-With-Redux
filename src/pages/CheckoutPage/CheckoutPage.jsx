@@ -1,17 +1,20 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/CartContext.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems, 
+    selectCartCount, 
+    selectCartTotalPrice 
+} from "../../store/cart/cartSelector.js";
+import { addItemToCart, 
+    removeItemFromCart,
+    decrementItem
+} from "../../store/cart/cartAction.js";
 import { Button } from "../../components/Button/Button.jsx";
 import "./CheckoutPage.scss";
 
 export function CheckoutPage() {
-    const { 
-        cartItems, 
-        cartCount,
-        cartTotalPrice, 
-        addItemToCart, 
-        removeItemFromCart, 
-        decrementItemCount 
-    } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const cartCount = useSelector(selectCartCount);
+    const cartTotalPrice = useSelector(selectCartTotalPrice);
+    const dispatch = useDispatch();
 
     const cartItemTableRowsJsx = cartItems.map((cartItem) => {
         const { id, name, imageUrl, price, quantity } = cartItem;
@@ -22,14 +25,14 @@ export function CheckoutPage() {
                 <td className="td-name">{name}</td>
                 <td className="td-quantity-btn-container">
                     <button 
-                        onClick={() => decrementItemCount(cartItem)}
+                        onClick={() => dispatch(decrementItem(cartItems, cartItem))}
                         className="td-quantity-btn decrease-btn"
                         >
                         <i className="fa-solid fa-minus"></i>
                     </button>
                         {quantity}
                     <button 
-                        onClick={() => addItemToCart(cartItem)}
+                        onClick={() => dispatch(addItemToCart(cartItems, cartItem))}
                         className="td-quantity-btn increase-btn"
                         >
                         <i className="fa-solid fa-plus"></i>
@@ -41,7 +44,7 @@ export function CheckoutPage() {
                 </td>
                 <td className="td-close-btn-container">
                     <button 
-                        onClick={() => removeItemFromCart(cartItem)}
+                        onClick={() => dispatch(removeItemFromCart(cartItems, cartItem))}
                         className="td-close-btn" 
                         >
                         <i className="fa-solid fa-xmark"></i>

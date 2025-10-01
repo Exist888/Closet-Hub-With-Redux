@@ -1,6 +1,8 @@
 import { createContext, useMemo, useCallback, useReducer } from "react";
 import { createAction } from "../utils/reducer/reducerUtils.js";
 
+export const CartContext = createContext();
+
 function addCartItem(cartItems, productToAdd) {
     // Check whether current array includes product to add
     const existingCartItem = cartItems.find((cartItem) => {
@@ -51,8 +53,6 @@ function decrementCartItem(cartItems, productToDecrement) {
 
     return updatedCartItems;
 }
-
-export const CartContext = createContext();
 
 // FOR REDUCER: Define action types - names for how initial state will be modified
 export const CART_ACTION_TYPES = {

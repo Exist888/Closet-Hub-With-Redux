@@ -1,11 +1,12 @@
-import { useContext, forwardRef } from "react";
-import { CartContext } from "../../contexts/CartContext.jsx";
+import { forwardRef } from "react";
+import { useSelector } from "react-redux";
+import { selectCartCount } from "../../store/cart/cartSelector.js";
 import ShoppingBag from "../../assets/shopping-bag.svg?react";
 import "./CartIcon.scss";
 
 // Use forwardRef and inner component because we will pass this into a sibling via the Header parent
 export function CartIconInner({ toggleDropdown, isDropdownClicked }, ref) {
-    const { cartCount } = useContext(CartContext);
+    const cartCount = useSelector(selectCartCount);
 
     return (
         <button 

@@ -1,6 +1,6 @@
 import { createSelector } from "reselect"; // Library for memoizing selectors
 
-// Select the slice of Redux state containing the categories reducer.
+// Select the slice of Redux state containing the categories reducer
 function selectCategoryReducer(state) {
     return state.categories;
 }
