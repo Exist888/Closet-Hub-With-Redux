@@ -6,9 +6,15 @@ import { rootReducer } from "./rootReducer.js";
 
 const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(Boolean);
 
-// Enable redux devtools extension if available - Clean up later for production:
-const composeEnhancer = (
-    (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+// Use Redux DevTools Extension in development, fallback to default compose in production
+const composeEnhancer = ((
+    process.env.NODE_ENV !== "production"
+    && typeof window !== "undefined"
+    ) ? (
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ) : (
+        compose
+    )
 );
 
 const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
