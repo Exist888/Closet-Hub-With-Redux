@@ -1,16 +1,17 @@
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "../../store/cart/cartSlice.js"; // FOR TOOLKIT: change import from location
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems } from "../../store/cart/cartSelector.js";
+import { addItemToCart } from "../../store/cart/cartAction.js";
 import { Button } from "../Button/Button.jsx";
 import "./ProductCard.scss";
 
 export function ProductCard({ product }) {
+    const cartItems = useSelector(selectCartItems);
     const dispatch = useDispatch();
 
     const { imageUrl, name, price } = product;
 
-    // FOR TOOLKIT: pass in one product param into dispatched action (instead of two params for redux)
     function addProductToCart() {
-        dispatch(addItemToCart(product));
+        dispatch(addItemToCart(cartItems, product));
     }
 
     return (

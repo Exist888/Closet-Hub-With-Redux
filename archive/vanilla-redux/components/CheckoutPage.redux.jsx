@@ -6,7 +6,7 @@ import { selectCartItems,
 import { addItemToCart, 
     removeItemFromCart,
     decrementItem
-} from "../../store/cart/cartSlice.js"; // FOR TOOLKIT: change import from location
+} from "../../store/cart/cartAction.js";
 import { Button } from "../../components/Button/Button.jsx";
 import "./CheckoutPage.scss";
 
@@ -19,21 +19,20 @@ export function CheckoutPage() {
     const cartItemTableRowsJsx = cartItems.map((cartItem) => {
         const { id, name, imageUrl, price, quantity } = cartItem;
 
-        // FOR TOOLKIT: pass in one cartItem param into dispatched actions (instead of two params for redux)
         return (
             <tr className="table-product-row" key={id}>
                 <td className="td-img"><img src={imageUrl} alt={`photo of ${name}`} /></td>
                 <td className="td-name">{name}</td>
                 <td className="td-quantity-btn-container">
                     <button 
-                        onClick={() => dispatch(decrementItem(cartItem))}
+                        onClick={() => dispatch(decrementItem(cartItems, cartItem))}
                         className="td-quantity-btn decrease-btn"
                         >
                         <i className="fa-solid fa-minus"></i>
                     </button>
                         {quantity}
                     <button 
-                        onClick={() => dispatch(addItemToCart(cartItem))}
+                        onClick={() => dispatch(addItemToCart(cartItems, cartItem))}
                         className="td-quantity-btn increase-btn"
                         >
                         <i className="fa-solid fa-plus"></i>
@@ -45,7 +44,7 @@ export function CheckoutPage() {
                 </td>
                 <td className="td-close-btn-container">
                     <button 
-                        onClick={() => dispatch(removeItemFromCart(cartItem))}
+                        onClick={() => dispatch(removeItemFromCart(cartItems, cartItem))}
                         className="td-close-btn" 
                         >
                         <i className="fa-solid fa-xmark"></i>
