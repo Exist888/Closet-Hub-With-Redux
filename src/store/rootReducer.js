@@ -1,6 +1,8 @@
-import { combineReducers } from "redux";
-import { userReducer } from "./user/userReducer.js";
-import { categoriesReducer } from "./categories/categoriesReducer.js";
+// FOR TOOLKIT: import combineReducers from toolkit instead of redux - same method name
+// Import each reducer from the new slice file
+import { combineReducers } from "@reduxjs/toolkit";
+import { userReducer } from "./user/userSlice.js";
+import { categoriesReducer } from "./categories/categoriesSlice.js";
 import { cartReducer } from "./cart/cartReducer.js";
 
 // 2) Set up single root reducer where all reducers will live in a single global state

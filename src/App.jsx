@@ -11,8 +11,8 @@ import { onAuthStateChangedListener,
     createUserDocumentFromAuth,
     getCategoriesAndDocuments 
 } from "./services/firebase/firebase.js";
-import { setCurrentUser } from "./store/user/userAction.js";
-import { setCategories } from "./store/categories/categoriesAction.js";
+import { setCurrentUser } from "./store/user/userSlice.js"; // FOR TOOLKIT: import action from slice file
+import { setCategories } from "./store/categories/categoriesSlice.js"; // FOR TOOLKIT: import from slice
 import "./App.scss";
 
 export function App() {
@@ -25,7 +25,10 @@ export function App() {
             if (user) {
                 createUserDocumentFromAuth(user);
             }
-            dispatch(setCurrentUser(user));
+            // FOR TOOLKIT: Extract only serializable fields from Firebase user object (class constructor)
+            const pickedUser = user ? { accessToken: user.accessToken, email: user.email } : null;
+            // Pass new serializable object into Toolkit action to update state
+            dispatch(setCurrentUser(pickedUser));
         });
 
         // Stop listener on unmount
