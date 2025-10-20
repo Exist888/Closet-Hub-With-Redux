@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems, 
     selectCartCount, 
@@ -8,9 +9,11 @@ import { addItemToCart,
     decrementItem
 } from "../../store/cart/cartSlice.js"; // FOR TOOLKIT: change import from location
 import { Button } from "../../components/Button/Button.jsx";
+import { PaymentForm } from "../../components/PaymentForm/PaymentForm.jsx";
 import "./CheckoutPage.scss";
 
 export function CheckoutPage() {
+    const [openPaymentForm, setOpenPaymentForm] = useState(false);
     const cartItems = useSelector(selectCartItems);
     const cartCount = useSelector(selectCartCount);
     const cartTotalPrice = useSelector(selectCartTotalPrice);
@@ -29,14 +32,14 @@ export function CheckoutPage() {
                         onClick={() => dispatch(decrementItem(cartItem))}
                         className="td-quantity-btn decrease-btn"
                         >
-                        <i className="fa-solid fa-minus"></i>
+                        <i className="fa-solid fa-minus" aria-label="subtract item"></i>
                     </button>
                         {quantity}
                     <button 
                         onClick={() => dispatch(addItemToCart(cartItem))}
                         className="td-quantity-btn increase-btn"
                         >
-                        <i className="fa-solid fa-plus"></i>
+                        <i className="fa-solid fa-plus" aria-label="add item"></i>
                     </button>
                 </td>
                 <td className="td-price">
@@ -48,7 +51,7 @@ export function CheckoutPage() {
                         onClick={() => dispatch(removeItemFromCart(cartItem))}
                         className="td-close-btn" 
                         >
-                        <i className="fa-solid fa-xmark"></i>
+                        <i className="fa-solid fa-xmark" aria-label="close"></i>
                     </button>
                 </td>
             </tr>
@@ -72,7 +75,7 @@ export function CheckoutPage() {
                         </article>
                     <article className="payment-total-container">
                         <span className="payment-total-text">Your Current Total: </span>
-                        <Button className="checkout">
+                        <Button className="checkout" onClick={() => setOpenPaymentForm(true)}>
                             <i className="fa-solid fa-credit-card"></i>
                             Pay {cartTotalPrice} USD
                         </Button>
@@ -85,6 +88,7 @@ export function CheckoutPage() {
                     <i className="fa-solid fa-arrow-right"></i>
                 </span>
             </div>
+            {openPaymentForm && <PaymentForm setOpenPaymentForm={setOpenPaymentForm}/>}
             <table>
                 <thead>
                     <tr className="table-header-row">
