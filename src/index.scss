@@ -36,3 +36,8 @@ a:hover,
 .link:hover {
     cursor: pointer;
 }
+
+button:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}

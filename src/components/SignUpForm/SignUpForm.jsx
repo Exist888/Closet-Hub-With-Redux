@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FormInput } from "../FormInput/FormInput.jsx";
 import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
+import { Notification } from "../Notification/Notification.jsx";
+import { Spinner } from "../Spinner/Spinner.jsx";
 import { 
     createAuthUserWithEmailAndPassword, 
     createUserDocumentFromAuth,
@@ -18,9 +20,12 @@ const defaultFormFields = {
 
 export function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const { displayName, email, password, confirmPassword } = formFields;
 
     function handleChange(event) {
+        setErrorMsg(null);
         // Destructure input name and value when input changes
         const { name, value } = event.target;
         // Update state to new value where input changes while keeping remaining fields
@@ -33,9 +38,11 @@ export function SignUpForm() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setIsLoading(true);
         
         if (password !== confirmPassword) {
-            alert("Passwords don't match. Please try again.");
+            setIsLoading(false);
+            setErrorMsg("Passwords don't match. Please try again.");
             return;
         }
 
@@ -45,11 +52,13 @@ export function SignUpForm() {
             resetFormFields();
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {
-                alert("Cannot create account. Email already in use.")
+                setErrorMsg("Cannot create account. Email already in use.")
             } else {
-                alert("Error creating account. Please try again or continue with Google instead.")
+                setErrorMsg("Error creating account. Please try again or continue with Google instead.")
             }
         }
+
+        setIsLoading(false);
     }
 
     async function signInWithGoogle() {
@@ -58,6 +67,12 @@ export function SignUpForm() {
 
     return (
         <section className="sign-up-form-section">
+            {isLoading && (
+                <Spinner>Signing Up</Spinner>
+            )}
+            {errorMsg && (
+                <Notification notificationClass="errorMsg">{errorMsg}</Notification>
+            )}
             <h1>New to Closet Hub?</h1>
             <p>
                 <i aria-hidden="true" className="fa-solid fa-user-plus"></i>
@@ -95,7 +110,7 @@ export function SignUpForm() {
                     onChange={handleChange}
                     name="password" 
                     value={password}
-                    minLength={15}
+                    minLength={8}
                     maxLength={35}
                     autoComplete="new-password"
                 />
@@ -108,7 +123,7 @@ export function SignUpForm() {
                     onChange={handleChange}
                     name="confirmPassword"
                     value={confirmPassword} 
-                    minLength={15}
+                    minLength={8}
                     maxLength={35}
                     autoComplete="new-confirm-password"
                 />

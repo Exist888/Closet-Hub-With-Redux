@@ -1,20 +1,31 @@
+import { useState, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { selectCartTotalPrice } from "../../store/cart/cartSelector.js";
+import { selectCurrentUser } from "../../store/user/userSelector.js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-// import { PaymentElement } from "@stripe/react-stripe-js/checkout";
 import { Button } from "../Button/Button.jsx";
+import { Notification } from "../Notification/Notification.jsx";
+import { Spinner } from "../Spinner/Spinner.jsx";
 import logo from "../../assets/logo.png";
 import "./PaymentForm.scss";
 
 export function PaymentForm({ setOpenPaymentForm }) {
-    const cartTotalPrice = useSelector(selectCartTotalPrice).toFixed(2);
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [successMsg, setSuccessMsg] = useState(null);
+    const [spinnerText, setSpinnerText] = useState("Processing Your Payment")
+    const cartTotalPrice = useSelector(selectCartTotalPrice);
+    const currentUser = useSelector(selectCurrentUser);
     const stripe = useStripe();
     const elements = useElements();
+    const paymentViaStripe = cartTotalPrice * 100;
 
     async function handleSubmit(event) {
         event.preventDefault();
         
         if (!stripe || !elements) return;
+
+        setIsProcessingPayment(true);
 
         try {
             // Fetch raw json response from netlify function
@@ -23,7 +34,7 @@ export function PaymentForm({ setOpenPaymentForm }) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ amount: 10000 })
+                body: JSON.stringify({ amount: paymentViaStripe })
             });
 
             if (!response.ok) throw new Error("Failed to fetch");
@@ -33,53 +44,78 @@ export function PaymentForm({ setOpenPaymentForm }) {
 
             const clientSecret = data.paymentIntent.client_secret;
 
-            // console.log("CLIENT SECRET", clientSecret);
-
             const paymentResult = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement),
                     billing_details: {
-                        name: "Thom Yorke"
+                        name: currentUser? currentUser.displayName : "guest"
                     }
                 }
             });
 
             if (paymentResult.error) {
-                alert(paymentResult.error.message);
+                setErrorMsg(paymentResult.error.message);
+                setIsProcessingPayment(false);
             } else if (paymentResult.paymentIntent.status === "succeeded") {
-                alert("Payment Successful");
-                setOpenPaymentForm(false);
+                setSuccessMsg("Payment Successful");
+                setSpinnerText("");
+                setTimeout(() => {
+                    setOpenPaymentForm(false);
+                    setIsProcessingPayment(false);
+                }, 2000);
             }
         } catch (error) {
-            alert("Error processing your payment.");
+            setErrorMsg("Error processing your payment.");
+            setIsProcessingPayment(false);
         }
     }
 
     return (
-        <div className="checkout-modal-overlay">
-            <article className="checkout-container">
-                <div className="logo-and-close-btn-container">
-                    <img className="logo" src={logo} alt="Closet Hub Logo" />
-                    <button className="close-btn" onClick={() => setOpenPaymentForm(false)}>
-                        <i className="fa-solid fa-xmark" aria-label="close"></i>
-                    </button>
-                </div>
-                <div className="payment-summary-container">
-                    <p><small>Pay Closet Hub</small> {cartTotalPrice} USD</p>
-                    <hr/>
-                </div>
-                <form className="checkout-form" onSubmit={handleSubmit}>
-                    <CardElement className="checkout-card"/>
-                    <Button className="checkout">
-                        <i className="fa-solid fa-credit-card" aria-hidden="true"></i>
-                        Submit Payment
-                    </Button>
-                </form>
-                <div className="security-statement-container">
-                    <small>Powered by</small>
-                    <i className="fa-brands fa-stripe" aria-label="Stripe"></i>
-                </div>
-            </article>
-        </div>
+        <Fragment>
+            <div className="checkout-modal-overlay">
+                {isProcessingPayment && (
+                    <Spinner>{spinnerText}</Spinner>
+                )}
+                {errorMsg && (
+                    <Notification 
+                        className="notification" 
+                        notificationClass="paymentFailedMsg"
+                        >
+                        {errorMsg}
+                    </Notification>
+                )}
+                {successMsg && (
+                    <Notification 
+                        className="notification" 
+                        notificationClass="successMsg"
+                        >
+                        {successMsg}
+                    </Notification>
+                )}
+                <article className="checkout-container">
+                    <div className="logo-and-close-btn-container">
+                        <img className="logo" src={logo} alt="Closet Hub Logo" />
+                        <button className="close-btn" onClick={() => setOpenPaymentForm(false)}>
+                            <i className="fa-solid fa-xmark" aria-label="close"></i>
+                        </button>
+                    </div>
+                    <div className="payment-summary-container">
+                        <p><small>Pay Closet Hub</small> {cartTotalPrice.toFixed(2)} USD</p>
+                        <hr/>
+                    </div>
+                    <form className="checkout-form" onSubmit={handleSubmit}>
+                        <CardElement className="checkout-card" onChange={() => setErrorMsg(null)}/>
+                        <Button className="checkout" isLoading={isProcessingPayment}>
+                            <i className="fa-solid fa-credit-card" aria-hidden="true"></i>
+                            Submit Payment
+                        </Button>
+                    </form>
+                    <div className="security-statement-container">
+                        <small>Powered by</small>
+                        <i className="fa-brands fa-stripe" aria-label="Stripe"></i>
+                    </div>
+                </article>
+            </div>
+        </Fragment>
     );
 }
