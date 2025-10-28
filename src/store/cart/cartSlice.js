@@ -60,9 +60,6 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState: INITIAL_STATE,
     reducers: {
-        // setCartItems: (state, action) => {
-        //     state.cartItems = action.payload;
-        // },
         addItemToCart: (state, action) => {
             state.cartItems = addCartItem(state.cartItems, action.payload);
         },
@@ -78,35 +75,3 @@ export const cartSlice = createSlice({
 export const { addItemToCart, removeItemFromCart, decrementItem } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
-
-// export function cartReducer(state = INITIAL_STATE, action = {}) {
-//     const { type, payload } = action;
-
-//     switch(type) {
-//         case CART_ACTION_TYPES.SET_CART_ITEMS: 
-//             return { ...state, cartItems: payload }
-//         default: 
-//             return state;
-//     }
-// }
-
-
-// // Actions that update state - modified from original Context reducer
-// export function setCartItems(cartItems) {
-//     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems);
-// }
-
-// export function addItemToCart(cartItems, productToAdd) {
-//     const newCartItems = addCartItem(cartItems, productToAdd);
-//     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
-// }
-
-// export function removeItemFromCart(cartItems, productToRemove) {
-//     const newCartItems = removeCartItem(cartItems, productToRemove);
-//     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
-// }
-
-// export function decrementItem(cartItems, productToDecrement) {
-//     const newCartItems = decrementCartItem(cartItems, productToDecrement);
-//     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
-// }
