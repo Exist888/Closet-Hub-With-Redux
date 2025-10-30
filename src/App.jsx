@@ -12,7 +12,7 @@ import { onAuthStateChangedListener,
     getCategoriesAndDocuments 
 } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userSlice.js"; // FOR TOOLKIT: import action from slice file
-import { setCategories } from "./store/categories/categoriesSlice.js"; // FOR TOOLKIT: import from slice
+import { setCategories } from "./store/categories/categoriesSlice.ts"; // FOR TOOLKIT: import from slice
 import "./App.scss";
 
 export function App() {

@@ -2,7 +2,7 @@
 // Import each reducer from the new slice file
 import { combineReducers } from "@reduxjs/toolkit";
 import { userReducer } from "./user/userSlice.js";
-import { categoriesReducer } from "./categories/categoriesSlice.js";
+import { categoriesReducer } from "./categories/categoriesSlice.ts";
 import { cartReducer } from "./cart/cartSlice.js";
 
 // 2) Set up single root reducer where all reducers will live in a single global state
