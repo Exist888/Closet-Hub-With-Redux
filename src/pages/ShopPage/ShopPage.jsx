@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategories } from "../../store/categories/categoriesSelector.js";
+import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector.js";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
+import { Spinner } from "../../components/Spinner/Spinner.jsx";
 import "./ShopPage.scss";
 
 export function ShopPage() {
     // Get the transformed categories object (keyed by category title) from Redux store via selector
     const categoriesObject = useSelector(selectCategories);
+    // Capture isLoading state from Redux
+    const isLoading = useSelector(selectIsLoading);
 
     // Extract category titles (object keys) for iteration
     const categoryKeys = Object.keys(categoriesObject);
@@ -34,7 +37,7 @@ export function ShopPage() {
                     </div>
                 </Link>
                 <div className="category-container">
-                    {categoryProductsJsx}
+                    {isLoading ? <Spinner /> : categoryProductsJsx}
                 </div>
             </div>
         );
