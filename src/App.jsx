@@ -12,7 +12,7 @@ import { onAuthStateChangedListener,
     getCategoriesAndDocuments 
 } from "./services/firebase/firebase.js";
 import { setCurrentUser } from "./store/user/userSlice.js"; // FOR TOOLKIT: import action from slice file
-import { setCategories } from "./store/categories/categoriesSlice.ts"; // FOR TOOLKIT: import from slice
+import { setCategories, setIsLoading } from "./store/categories/categoriesSlice.ts"; // FOR TOOLKIT: import from slice
 import "./App.scss";
 
 export function App() {
@@ -37,8 +37,14 @@ export function App() {
 
     useEffect(() => {
         async function getCategories() {
-            const categoryObjectsArray = await getCategoriesAndDocuments();
-            dispatch(setCategories(categoryObjectsArray));
+            dispatch(setIsLoading(true));
+            // Wrap fetch in try/finally block to prevent perpetual loading state
+            try {
+                const categoryObjectsArray = await getCategoriesAndDocuments();
+                dispatch(setCategories(categoryObjectsArray));
+            } finally {
+                dispatch(setIsLoading(false));
+            }
         }
         getCategories();
     }, []);

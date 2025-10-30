@@ -17,11 +17,13 @@ interface CategoryObject {
 }
 
 interface CategoriesState {
-    categoryObjectsArray: CategoryObject[]
+    categoryObjectsArray: CategoryObject[],
+    isLoading: boolean
 }
 
 const INITIAL_STATE: CategoriesState = {
-    categoryObjectsArray: []
+    categoryObjectsArray: [],
+    isLoading: false
 };
 
 // FOR TOOLKIT: use createSlice to replace handle name, state, and actions
@@ -33,10 +35,13 @@ export const categoriesSlice = createSlice({
         // This is the same type to which our state (categoryObjectsArray) is assigned
         setCategories: (state, action: PayloadAction<CategoryObject[]>) => {
             state.categoryObjectsArray = action.payload;
+        },
+        setIsLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload
         }
     }
 });
 
-export const { setCategories } = categoriesSlice.actions;
+export const { setCategories, setIsLoading } = categoriesSlice.actions;
 
 export const categoriesReducer = categoriesSlice.reducer;

@@ -30,3 +30,8 @@ export const selectCategories = createSelector(
         return updatedCategoriesObj;
     }
 );
+
+// Create a selector to memoize state for categories loading
+export function selectIsLoading(state) {
+    return state.categories.isLoading;
+}
