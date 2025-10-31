@@ -31,7 +31,7 @@ export const selectCategories = createSelector(
     }
 );
 
-// Create a selector to memoize state for categories loading
+// Create a selector for global isLoading state
 export function selectIsLoading(state) {
     return state.categories.isLoading;
 }

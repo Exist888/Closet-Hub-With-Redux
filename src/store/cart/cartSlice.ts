@@ -1,7 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+// FOR TOOLKIT: import createSlice method and change file name to categoriesSlice
+// FOR TS: import PayloadAction to type the action in reducer
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+// Define first interface above helper functions as they need CartItem type
+// State type will be defined below helper functions
+interface CartItem {
+    id: number,
+    name: string,
+    imageUrl: string,
+    price: number,
+    quantity: number
+}
 
 // Three helper functions that will be called in slice below
-function addCartItem(cartItems, productToAdd) {
+function addCartItem(cartItems: CartItem[], productToAdd: CartItem) {
     // Check whether current array includes product to add
     const existingCartItem = cartItems.find((cartItem) => {
         return cartItem.id === productToAdd.id;
@@ -25,7 +37,7 @@ function addCartItem(cartItems, productToAdd) {
     }
 }
 
-function removeCartItem(cartItems, productToRemove) {
+function removeCartItem(cartItems: CartItem[], productToRemove: CartItem) {
     // Filter out the product to remove based on id - 
     // Filter is better than map here, as it returns only items that pass the condition
     const updatedCartItems = cartItems.filter((cartItem) => {
@@ -34,7 +46,7 @@ function removeCartItem(cartItems, productToRemove) {
     return updatedCartItems;
 }
 
-function decrementCartItem(cartItems, productToDecrement) {
+function decrementCartItem(cartItems: CartItem[], productToDecrement: CartItem) {
     // If quantity before decrementing is 1, remove item completely
     if (productToDecrement.quantity === 1) {
         return removeCartItem(cartItems, productToDecrement);
@@ -52,7 +64,11 @@ function decrementCartItem(cartItems, productToDecrement) {
     return updatedCartItems;
 }
 
-const INITIAL_STATE = {
+interface CartState {
+    cartItems: CartItem[]
+}
+
+const INITIAL_STATE: CartState = {
     cartItems: [],
 }
 
@@ -60,13 +76,15 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState: INITIAL_STATE,
     reducers: {
-        addItemToCart: (state, action) => {
+        // FOR TS: PayloadAction will always be of type CartItem
+        // This is the same type to which our state (cartItems) is assigned
+        addItemToCart: (state, action: PayloadAction<CartItem>) => {
             state.cartItems = addCartItem(state.cartItems, action.payload);
         },
-        removeItemFromCart: (state, action) => {
+        removeItemFromCart: (state, action: PayloadAction<CartItem>) => {
             state.cartItems = removeCartItem(state.cartItems, action.payload);
         },
-        decrementItem: (state, action) => {
+        decrementItem: (state, action: PayloadAction<CartItem>) => {
             state.cartItems = decrementCartItem(state.cartItems, action.payload);
         }
     }
