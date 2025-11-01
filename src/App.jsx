@@ -10,7 +10,7 @@ import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop.jsx";
 import { onAuthStateChangedListener, 
     createUserDocumentFromAuth,
     getCategoriesAndDocuments 
-} from "./services/firebase/firebase.js";
+} from "./services/firebase/firebase";
 import { setCurrentUser } from "./store/user/userSlice"; // FOR TOOLKIT: import action from slice file
 import { setCategories, setIsLoading } from "./store/categories/categoriesSlice"; // FOR TOOLKIT: import from slice
 import "./App.scss";
@@ -20,7 +20,7 @@ export function App() {
 
     useEffect(() => {
         // Call listener to track auth state changes throughout app
-        // Argument for user parameter is passed in automatically by Firebase - see services/firebase.js
+        // Argument for user parameter is passed in automatically by Firebase - see services/firebase
         const unsubscribe = onAuthStateChangedListener((user) => {
             if (user) {
                 createUserDocumentFromAuth(user);

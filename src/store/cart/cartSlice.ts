@@ -1,7 +1,7 @@
 // FOR TOOLKIT: import createSlice method and change file name to categoriesSlice
 // FOR TS: import PayloadAction to type the action in reducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, CartState } from "../../types";
+import { CartItem, CartState } from "../../types/types";
 
 // Three helper functions that will be called in slice below
 function addCartItem(cartItems: CartItem[], productToAdd: CartItem) {

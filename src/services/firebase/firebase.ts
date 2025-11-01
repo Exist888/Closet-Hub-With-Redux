@@ -6,7 +6,10 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    // For TS: Firebase's built-in types - User (including uid) & NextOrObserver
+    User as FirebaseUser,
+    NextOrObserver
 } from "firebase/auth";
 import { 
     getFirestore, 
@@ -16,8 +19,11 @@ import {
     collection, 
     writeBatch, 
     query,
-    getDocs
+    getDocs,
+    // For TS: Firebase's built-in type - DocumentReference
+    DocumentReference
 } from "firebase/firestore";
+import { CategoryObject } from "../../types/types";
 
 // Initialize Firebase app with .env variables
 const firebaseConfig = {
@@ -49,8 +55,17 @@ export function signInWithGooglePopup() {
 // Initialize Firestore database
 export const db = getFirestore();
 
-// Add multiple docs to a collection in Firestore (creates the collection if it doesn’t exist)
-export async function addCollectionAndDocuments(collectionKey, objectsToAdd) {
+// For TS: define shape of ObjectToAdd type
+interface ObjectToAdd {
+    title: string
+}
+
+// Add multiple docs to a collection in Firestore
+// For TS: pass in generic type that extends ObjectToAdd - ensures any T will have at least a title prop
+export async function addCollectionAndDocuments<T extends ObjectToAdd>(
+    collectionKey: string, objectsToAdd: T[]
+// Function returns async Promise type with its own void return type
+): Promise<void> {
     // Create a reference to our collection using db as location and collectionKey as its name
     const collectionRef = collection(db, collectionKey);
     // Create a batch so we can achieve multiple writes in one unit
@@ -66,7 +81,8 @@ export async function addCollectionAndDocuments(collectionKey, objectsToAdd) {
     await batch.commit();
 }
 
-export async function getCategoriesAndDocuments() {
+// For TS: function returns async Promise of type CategoryObject array
+export async function getCategoriesAndDocuments(): Promise<CategoryObject[]> {
     // Get a reference to our "categories" collection in Firestore
     const collectionRef = collection(db, "categories");
     // Build an unfiltered query to our collectionRef
@@ -78,7 +94,8 @@ export async function getCategoriesAndDocuments() {
 
     // FOR REDUX: Return an array of plain JS objects extracted from document snapshots
     const categoryObjectsArray = docSnapshots.map((docSnapshot) => {
-        return docSnapshot.data();
+        // For TS: ensure each snapshot is of type CategoryObject
+        return docSnapshot.data() as CategoryObject;
     });
 
     return categoryObjectsArray;
@@ -86,7 +103,11 @@ export async function getCategoriesAndDocuments() {
 
 // Create a user document in Firestore from authenticated user data
 // Include additionalInfo as optional param to overwrite nullified displayName (for em and pw auth)
-export async function createUserDocumentFromAuth(userAuth, additionalInfo = {}) {
+export async function createUserDocumentFromAuth(
+    // For TS: assign userAuth to default Firebase User object type so TS can infer uid type
+    // For TS: If additional info includes displayName, assign to type string
+    userAuth: FirebaseUser, additionalInfo: { displayName?: string } = {}
+): Promise<DocumentReference | void> {
     if (!userAuth) return;
 
     // Create reference to user object in "users" collection with uid as id
@@ -117,12 +138,13 @@ export async function createUserDocumentFromAuth(userAuth, additionalInfo = {}) 
     return userDocRef;
 }
 
-export async function createAuthUserWithEmailAndPassword(email, password) {
+// For TS: assign types to parameters in next two functions
+export async function createAuthUserWithEmailAndPassword(email: string, password: string) {
     if (!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password);
 }
 
-export async function signInUserWithEmailAndPassword(email, password) {
+export async function signInUserWithEmailAndPassword(email: string, password:string) {
     if (!email || !password) return;
     return await signInWithEmailAndPassword(auth, email, password);
 }
@@ -131,6 +153,7 @@ export async function signOutUser() {
     await signOut(auth);
 }
 
-export function onAuthStateChangedListener(callback) {
+// For TS: assign TS union type to callback to allow for next (with user) or observer (for complete or error)
+export function onAuthStateChangedListener(callback: NextOrObserver<FirebaseUser>) {
     onAuthStateChanged(auth, callback);
 }

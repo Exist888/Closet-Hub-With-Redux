@@ -4,7 +4,7 @@ import { Button } from "../Button/Button.jsx";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
 import { Spinner } from "../Spinner/Spinner.jsx";
-import { signInUserWithEmailAndPassword, signInWithGooglePopup } from "../../services/firebase/firebase.js";
+import { signInUserWithEmailAndPassword, signInWithGooglePopup } from "../../services/firebase/firebase";
 import "./SignInForm.scss";
 
 const defaultFormFields = {

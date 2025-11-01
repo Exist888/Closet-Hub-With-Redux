@@ -1,7 +1,7 @@
 // FOR TOOLKIT: import createSlice method and change file name to userSlice
 // FOR TS: import PayloadAction to type the action in reducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User, UserState } from "../../types";
+import { User, UserState } from "../../types/types";
 
 const INITIAL_STATE: UserState = {
     currentUser: null

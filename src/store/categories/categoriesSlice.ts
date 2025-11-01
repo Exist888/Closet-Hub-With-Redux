@@ -1,7 +1,7 @@
 // FOR TOOLKIT: import createSlice method and change file name to categoriesSlice
 // FOR TS: import PayloadAction to type the action in reducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CategoryObject, CategoriesState } from "../../types";
+import { CategoryObject, CategoriesState } from "../../types/types";
 
 const INITIAL_STATE: CategoriesState = {
     categoryObjectsArray: [],
