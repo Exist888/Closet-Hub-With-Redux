@@ -7,7 +7,7 @@ import { selectCartItems,
 import { addItemToCart, 
     removeItemFromCart,
     decrementItem
-} from "../../store/cart/cartSlice.ts"; // FOR TOOLKIT: change import from location
+} from "../../store/cart/cartSlice"; // FOR TOOLKIT: change import from location
 import { Button } from "../../components/Button/Button.jsx";
 import { PaymentForm } from "../../components/PaymentForm/PaymentForm.jsx";
 import "./CheckoutPage.scss";

@@ -1,18 +1,7 @@
 // FOR TOOLKIT: import createSlice method and change file name to userSlice
 // FOR TS: import PayloadAction to type the action in reducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-// Do not include password - we pass this into our firebase function at the component level
-interface User {
-    email: string,
-    // Make displayName optional to handle sign in component without name
-    displayName?: string
-}
-
-interface UserState {
-    // Union with null option is standard for auth state - representing no user signed in
-    currentUser: User | null
-}
+import { User, UserState } from "../../types";
 
 const INITIAL_STATE: UserState = {
     currentUser: null

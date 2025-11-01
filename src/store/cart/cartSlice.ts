@@ -1,16 +1,7 @@
 // FOR TOOLKIT: import createSlice method and change file name to categoriesSlice
 // FOR TS: import PayloadAction to type the action in reducer
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-// Define first interface above helper functions as they need CartItem type
-// State type will be defined below helper functions
-interface CartItem {
-    id: number,
-    name: string,
-    imageUrl: string,
-    price: number,
-    quantity: number
-}
+import { CartItem, CartState } from "../../types";
 
 // Three helper functions that will be called in slice below
 function addCartItem(cartItems: CartItem[], productToAdd: CartItem) {
@@ -62,10 +53,6 @@ function decrementCartItem(cartItems: CartItem[], productToDecrement: CartItem) 
     });
 
     return updatedCartItems;
-}
-
-interface CartState {
-    cartItems: CartItem[]
 }
 
 const INITIAL_STATE: CartState = {
