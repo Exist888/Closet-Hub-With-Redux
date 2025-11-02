@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCartItems } from "../../store/cart/cartSelector.js";
+import { selectCartItems } from "../../store/cart/cartSelector";
 import { CartItem } from "../CartItem/CartItem.jsx";
 import { Button } from "../Button/Button.jsx";
 import "./CartDropdown.scss";

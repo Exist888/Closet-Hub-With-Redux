@@ -1,5 +1,7 @@
+import type { RootState } from "../store"; // For TS
+
 // Resuable function to pass into useSelector wherever a component needs access to current state
 // user comes from root and currentUser comes from key in state object in reducer
-export function selectCurrentUser(state) {
+export function selectCurrentUser(state: RootState) {
     return state.user.currentUser;
 }

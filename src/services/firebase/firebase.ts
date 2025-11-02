@@ -23,7 +23,7 @@ import {
     // For TS: Firebase's built-in type - DocumentReference
     DocumentReference
 } from "firebase/firestore";
-import { CategoryObject } from "../../types/types";
+import type { CategoryObject } from "../../types/types";
 
 // Initialize Firebase app with .env variables
 const firebaseConfig = {

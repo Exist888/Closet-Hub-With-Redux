@@ -1,7 +1,8 @@
 import { createSelector } from "reselect";
+import type { RootState } from "../store"; // For TS
 
 // Select the slice of Redux state containing the cart reducer
-function selectCartReducer(state) {
+function selectCartReducer(state: RootState) {
     return state.cart;
 }
 

@@ -1,5 +1,6 @@
 // FOR TOOLKIT: replace vanilla redux imports with configureStore import from toolkit
-import { configureStore } from "@reduxjs/toolkit";
+// For JS: import Middleware type
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { logger } from "redux-logger";
 import { persistStore, persistReducer,
     FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER
@@ -7,7 +8,13 @@ import { persistStore, persistReducer,
 import storage from "redux-persist/lib/storage";
 import { rootReducer } from "./rootReducer.js";
 
-const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(Boolean);
+const middlewares: Middleware[] = []
+
+const isDevMode = process.env.NODE_ENV !== "production";
+
+if (isDevMode) {
+    middlewares.push(logger);
+}
 
 // Create persist configuration object (blaclist user as Firebase handles persist for user)
 const persistConfig = {
@@ -30,10 +37,15 @@ export const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
-        }).concat(middleWares);
+        }).concat(middlewares);
     },
-    devTools: process.env.NODE_ENV !== "production"
+    devTools: isDevMode
 });
 
 // Pass persistor as prop into PersistGate in index.jsx
 export const persistor = persistStore(store);
+
+// For TS: Define type for RootState to assign to state in selectors
+export type RootState = ReturnType<typeof store.getState>;
+// For TS: Define type for dipatch to ensure type safety for dispatching in components
+export type AppDispatch = typeof store.dispatch;

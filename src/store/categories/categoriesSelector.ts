@@ -1,14 +1,16 @@
 import { createSelector } from "reselect"; // Library for memoizing selectors
+import type { CategoriesState, CategoryMap, CategoryObject } from "../../types/types"; // For TS
+import type { RootState } from "../store"; // For TS
 
 // Select the slice of Redux state containing the categories reducer
-function selectCategoryReducer(state) {
+function selectCategoryReducer(state: RootState): CategoriesState {
     return state.categories;
 }
 
 // Memoize the array of category objects from Firebase
 const selectCategoryObjectsArray = createSelector(
     [selectCategoryReducer], 
-    (categoriesSlice) => {
+    (categoriesSlice: CategoriesState) => {
         return categoriesSlice.categoryObjectsArray;
     }
 );
@@ -16,7 +18,7 @@ const selectCategoryObjectsArray = createSelector(
 // Memoize the tranformed data
 export const selectCategories = createSelector(
     [selectCategoryObjectsArray], 
-    (categoriesArray) => {
+    (categoriesArray: CategoryObject[]): CategoryMap => {
         // Transform categories into an object keyed by lowercase category title for quick lookup
         const updatedCategoriesObj = categoriesArray.reduce((acc, categoryObj) => {
             // Destructure title and items from the document data
@@ -25,13 +27,13 @@ export const selectCategories = createSelector(
             acc[title.toLowerCase()] = items;
             // Return the updated accumulator object
             return acc;
-        }, {});
+        }, {} as CategoryMap);
 
         return updatedCategoriesObj;
     }
 );
 
 // Create a selector for global isLoading state
-export function selectIsLoading(state) {
+export function selectIsLoading(state: RootState): boolean {
     return state.categories.isLoading;
 }

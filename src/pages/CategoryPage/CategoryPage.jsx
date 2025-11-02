@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector.js";
+import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector";
 import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
 import { Spinner } from "../../components/Spinner/Spinner.jsx";
 import "./CategoryPage.scss";

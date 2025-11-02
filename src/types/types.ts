@@ -12,9 +12,15 @@ export interface CategoryObject {
     items: CategoryItem[]
 }
 
+// For categoriesSelector
+export interface CategoryMap {
+    // Assign type string to keys in CategoryMap as we do not know key name yet
+    [key: string]: CategoryItem[]
+}
+
 export interface CategoriesState {
-    categoryObjectsArray: CategoryObject[],
-    isLoading: boolean
+    readonly categoryObjectsArray: CategoryObject[],
+    readonly isLoading: boolean
 }
 
 
@@ -28,7 +34,7 @@ export interface User {
 
 export interface UserState {
     // Union with null option is standard for auth state - representing no user signed in
-    currentUser: User | null
+    readonly currentUser: User | null
 }
 
 
@@ -42,5 +48,5 @@ export interface CartItem {
 }
 
 export interface CartState {
-    cartItems: CartItem[]
+    readonly cartItems: CartItem[]
 }

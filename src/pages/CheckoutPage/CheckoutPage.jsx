@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems, 
     selectCartCount, 
     selectCartTotalPrice 
-} from "../../store/cart/cartSelector.js";
+} from "../../store/cart/cartSelector";
 import { addItemToCart, 
     removeItemFromCart,
     decrementItem

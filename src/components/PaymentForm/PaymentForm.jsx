@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { useSelector } from "react-redux";
-import { selectCartTotalPrice } from "../../store/cart/cartSelector.js";
-import { selectCurrentUser } from "../../store/user/userSelector.js";
+import { selectCartTotalPrice } from "../../store/cart/cartSelector";
+import { selectCurrentUser } from "../../store/user/userSelector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Button } from "../Button/Button.jsx";
 import { Notification } from "../Notification/Notification.jsx";

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { useSelector } from "react-redux";
-import { selectCartCount } from "../../store/cart/cartSelector.js";
+import { selectCartCount } from "../../store/cart/cartSelector";
 import ShoppingBag from "../../assets/shopping-bag.svg?react";
 import "./CartIcon.scss";
 
