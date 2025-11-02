@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cartSelector";
 import { CartItem } from "../CartItem/CartItem.jsx";
-import { Button } from "../Button/Button.jsx";
+import { Button, BUTTON_CLASSES } from "../Button/Button";
 import "./CartDropdown.scss";
 
 export function CartDropdown({ closeDropdown, isDropdownClicked, cartIconRef }) {
@@ -72,7 +72,7 @@ export function CartDropdown({ closeDropdown, isDropdownClicked, cartIconRef }) 
             <article className="cart-items">
                 {cartItems.length > 0 ? cartItemsJsx : emptyCartMessage}
             </article>
-            <Button className="checkout" onClick={() => navigate("/checkout")}>
+            <Button buttonClass={BUTTON_CLASSES.checkout} onClick={() => navigate("/checkout")}>
                 Go to Checkout
                 <i className="fa-solid fa-arrow-right"></i>
             </Button>

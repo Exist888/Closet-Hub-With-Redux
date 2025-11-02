@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectCartTotalPrice } from "../../store/cart/cartSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { Button } from "../Button/Button.jsx";
+import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { Notification } from "../Notification/Notification.jsx";
 import { Spinner } from "../Spinner/Spinner.jsx";
 import logo from "../../assets/logo.png";
@@ -105,7 +105,7 @@ export function PaymentForm({ setOpenPaymentForm }) {
                     </div>
                     <form className="checkout-form" onSubmit={handleSubmit}>
                         <CardElement className="checkout-card" onChange={() => setErrorMsg(null)}/>
-                        <Button className="checkout" isLoading={isProcessingPayment}>
+                        <Button buttonClass={BUTTON_CLASSES.checkout} isLoading={isProcessingPayment}>
                             <i className="fa-solid fa-credit-card" aria-hidden="true"></i>
                             Submit Payment
                         </Button>

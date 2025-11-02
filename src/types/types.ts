@@ -14,7 +14,7 @@ export interface CategoryObject {
 
 // For categoriesSelector
 export interface CategoryMap {
-    // Assign type string to keys in CategoryMap as we do not know key name yet
+    // Index signature: keys are category titles (strings), values are arrays of CategoryItem
     [key: string]: CategoryItem[]
 }
 

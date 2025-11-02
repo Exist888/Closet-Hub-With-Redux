@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormInput } from "../FormInput/FormInput.jsx";
-import { Button } from "../Button/Button.jsx";
+import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
 import { Spinner } from "../Spinner/Spinner.jsx";
@@ -89,10 +89,10 @@ export function SignInForm() {
                     maxLength={35}
                     autoComplete="new-password"
                 />
-                <Button buttonClass="signIn" type="submit">Sign In</Button>
+                <Button buttonClass={BUTTON_CLASSES.signIn} type="submit">Sign In</Button>
             </form>
             <ButtonSeparator />
-            <Button buttonClass="googleSignIn" onClick={signInWithGoogle}>
+            <Button buttonClass={BUTTON_CLASSES.googleSignIn} onClick={signInWithGoogle}>
                 <i className="fa-brands fa-google"></i>
                 Sign In With Google
             </Button>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormInput } from "../FormInput/FormInput.jsx";
-import { Button } from "../Button/Button.jsx";
+import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
 import { Spinner } from "../Spinner/Spinner.jsx";
@@ -128,10 +128,10 @@ export function SignUpForm() {
                     autoComplete="new-confirm-password"
                 />
 
-                <Button buttonClass="signUp" type="submit">Sign Up</Button>
+                <Button buttonClass={BUTTON_CLASSES.signUp} type="submit">Sign Up</Button>
             </form>
             <ButtonSeparator />
-            <Button buttonClass="googleContinue" onClick={signInWithGoogle}>
+            <Button buttonClass={BUTTON_CLASSES.googleContinue} onClick={signInWithGoogle}>
                 <i className="fa-brands fa-google"></i>
                 Continue With Google
             </Button>

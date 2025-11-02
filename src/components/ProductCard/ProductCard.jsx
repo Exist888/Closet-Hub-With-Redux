@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../store/cart/cartSlice"; // FOR TOOLKIT: change import from location
-import { Button } from "../Button/Button.jsx";
+import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { Notification } from "../../components/Notification/Notification.jsx";
 import "./ProductCard.scss";
 
@@ -32,7 +32,7 @@ export function ProductCard({ product }) {
             )}
             <article className="product-card">
                 <img src={imageUrl} alt={`photo of ${name}`}/>
-                <Button buttonClass="product" onClick={addProductToCart}>
+                <Button buttonClass={BUTTON_CLASSES.product} onClick={addProductToCart}>
                     <div>
                         <i className="fa-solid fa-cart-plus"></i>
                         <span>Add to cart</span>
