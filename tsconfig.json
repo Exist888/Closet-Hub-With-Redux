@@ -17,5 +17,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "archive/vanilla-redux/utils", "archive/vanilla-redux/store/middleware"]
+  "include": [
+    "src", 
+    "src/types/custom.d.ts", 
+    "archive/vanilla-redux/utils", 
+    "archive/vanilla-redux/store/middleware"
+  ]
 }
