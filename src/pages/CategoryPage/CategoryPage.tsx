@@ -4,13 +4,20 @@ import { useSelector } from "react-redux";
 import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { Spinner } from "../../components/Spinner/Spinner";
+import type { CategoryItem } from "../../types/types"; // FOR TS: to specify type of products array
 import "./CategoryPage.scss";
 
+// FOR TS: Define the shape of expected route params for this page (e.g. "/shop/:category")
+type CategoryRouteParams = {
+    category: string
+}
+
 export function CategoryPage() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<CategoryItem[]>([]);
 
     // Destructure category from current url param object - same variable name assigned in shop route
-    const { category } = useParams();
+    // FOR TS: Pass custom type into params and assert type (params will always be string)
+    const { category } = useParams<CategoryRouteParams>() as CategoryRouteParams;
 
     // Get the transformed categories object (keyed by category title) from Redux store via selector
     const categoriesObject = useSelector(selectCategories);
@@ -20,7 +27,8 @@ export function CategoryPage() {
     // Set products state when category param or categoriesObject changes
     useEffect(() => {
         // Use dynamic key to lookup products that match title in param and assign to products state
-        setProducts(categoriesObject[category]);
+        // FOR TS: Ensure products start as empty CategoryItem array instead of undefined
+        setProducts(categoriesObject[category] ?? []);
     }, [category, categoriesObject]);
 
     // If products do not exist yet, map over an empty array to avoid errors

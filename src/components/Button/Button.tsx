@@ -1,4 +1,4 @@
-import type { JSX, ReactNode, ButtonHTMLAttributes } from "react"; // For TS
+import type { JSX, ReactNode, ButtonHTMLAttributes } from "react"; // FOR TS
 import "./Button.scss";
 
 export enum BUTTON_CLASSES {
@@ -25,7 +25,7 @@ export function Button({
     isLoading, 
     ...otherProps
 }: ButtonProps): JSX.Element {
-    // For TS: use the enum value directly—no need for a dynamic key lookup
+    // FOR TS: use the enum value directly—no need for a dynamic key lookup
     // `buttonClass` already contains the correct CSS class string
     // `children` renders button text or elements; `otherProps` passes native button props
     const mappedClass = buttonClass;

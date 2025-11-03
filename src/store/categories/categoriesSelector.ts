@@ -1,6 +1,6 @@
 import { createSelector } from "reselect"; // Library for memoizing selectors
-import type { CategoriesState, CategoryMap, CategoryObject } from "../../types/types"; // For TS
-import type { RootState } from "../store"; // For TS
+import type { CategoriesState, CategoryMap, CategoryObject } from "../../types/types"; // FOR TS
+import type { RootState } from "../store"; // FOR TS
 
 // Select the slice of Redux state containing the categories reducer
 function selectCategoryReducer(state: RootState): CategoriesState {

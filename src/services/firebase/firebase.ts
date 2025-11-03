@@ -18,7 +18,7 @@ import {
     query,
     getDocs,
 } from "firebase/firestore";
-// For TS: Firebase's built-in types - User (including uid), NextOrObserver, & DocumentReference
+// FOR TS: Firebase's built-in types - User (including uid), NextOrObserver, & DocumentReference
 import type { User as FirebaseUser, NextOrObserver, UserCredential } from "firebase/auth";
 import type { DocumentReference } from "firebase/firestore";
 import type { CategoryObject } from "../../types/types";
@@ -53,13 +53,13 @@ export function signInWithGooglePopup() {
 // Initialize Firestore database
 export const db = getFirestore();
 
-// For TS: define shape of ObjectToAdd type
+// FOR TS: define shape of ObjectToAdd type
 interface ObjectToAdd {
     title: string
 }
 
 // Add multiple docs to a collection in Firestore
-// For TS: pass in generic type that extends ObjectToAdd - ensures any T will have at least a title prop
+// FOR TS: pass in generic type that extends ObjectToAdd - ensures any T will have at least a title prop
 export async function addCollectionAndDocuments<T extends ObjectToAdd>(
     collectionKey: string, objectsToAdd: T[]
 // Function returns async Promise type with its own void return type
@@ -79,7 +79,7 @@ export async function addCollectionAndDocuments<T extends ObjectToAdd>(
     await batch.commit();
 }
 
-// For TS: function returns async Promise of type CategoryObject array
+// FOR TS: function returns async Promise of type CategoryObject array
 export async function getCategoriesAndDocuments(): Promise<CategoryObject[]> {
     // Get a reference to our "categories" collection in Firestore
     const collectionRef = collection(db, "categories");
@@ -92,7 +92,7 @@ export async function getCategoriesAndDocuments(): Promise<CategoryObject[]> {
 
     // FOR REDUX: Return an array of plain JS objects extracted from document snapshots
     const categoryObjectsArray = docSnapshots.map((docSnapshot) => {
-        // For TS: ensure each snapshot is of type CategoryObject
+        // FOR TS: ensure each snapshot is of type CategoryObject
         return docSnapshot.data() as CategoryObject;
     });
 
@@ -102,8 +102,8 @@ export async function getCategoriesAndDocuments(): Promise<CategoryObject[]> {
 // Create a user document in Firestore from authenticated user data
 // Include additionalInfo as optional param to overwrite nullified displayName (for em and pw auth)
 export async function createUserDocumentFromAuth(
-    // For TS: assign userAuth to default Firebase User object type so TS can infer uid type
-    // For TS: If additional info includes displayName, assign to type string
+    // FOR TS: assign userAuth to default Firebase User object type so TS can infer uid type
+    // FOR TS: If additional info includes displayName, assign to type string
     userAuth: FirebaseUser, additionalInfo: { displayName?: string } = {}
 ): Promise<DocumentReference | void> {
     if (!userAuth) return;
@@ -136,7 +136,7 @@ export async function createUserDocumentFromAuth(
     return userDocRef;
 }
 
-// For TS: assign types to parameters in next two functions
+// FOR TS: assign types to parameters in next two functions
 export async function createAuthUserWithEmailAndPassword(
     email: string, password: string
 ): Promise<UserCredential | void> {
@@ -153,7 +153,7 @@ export async function signOutUser() {
     await signOut(auth);
 }
 
-// For TS: assign TS union type to callback to allow for next (with user) or observer (for complete or error)
+// FOR TS: assign TS union type to callback to allow for next (with user) or observer (for complete or error)
 export function onAuthStateChangedListener(callback: NextOrObserver<FirebaseUser>) {
     onAuthStateChanged(auth, callback);
 }

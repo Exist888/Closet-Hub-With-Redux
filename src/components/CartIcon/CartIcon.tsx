@@ -3,6 +3,7 @@ import type { JSX, Ref } from "react";
 import { useSelector } from "react-redux";
 import { selectCartCount } from "../../store/cart/cartSelector";
 // Import svg as react component so it can be styled
+// FOR TS: declare module for *.svg?react in src/types/custom.d.ts
 import ShoppingBag from "../../assets/shopping-bag.svg?react";
 import "./CartIcon.scss";
 

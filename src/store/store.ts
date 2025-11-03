@@ -1,5 +1,5 @@
 // FOR TOOLKIT: replace vanilla redux imports with configureStore import from toolkit
-// For TS: import Middleware type
+// FOR TS: import Middleware type
 import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { logger } from "redux-logger";
 import { persistStore, persistReducer,
@@ -45,7 +45,7 @@ export const store = configureStore({
 // Pass persistor as prop into PersistGate in index.jsx
 export const persistor = persistStore(store);
 
-// For TS: Define type for RootState to assign to state in selectors
+// FOR TS: Define type for RootState to assign to state in selectors
 export type RootState = ReturnType<typeof store.getState>;
-// For TS: Define type for dipatch to ensure type safety for dispatching in components
+// FOR TS: Define type for dipatch to ensure type safety for dispatching in components
 export type AppDispatch = typeof store.dispatch;
