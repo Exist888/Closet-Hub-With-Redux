@@ -3,8 +3,8 @@ import { useState, useRef } from "react";
 import { useSelector } from "react-redux"; // For Redux, replace useContext with useSelector
 import { selectCurrentUser } from "../../store/user/userSelector"; // Returns current state from Redux
 import { signOutUser } from "../../services/firebase/firebase";
-import { CartIcon } from "../../components/CartIcon/CartIcon.jsx";
-import { CartDropdown } from "../../components/CartDropdown/CartDropdown.jsx";
+import { CartIcon } from "../../components/CartIcon/CartIcon";
+import { CartDropdown } from "../../components/CartDropdown/CartDropdown";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
 

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { getCategoriesAndDocuments } from "../services/firebase/firebase.js";
+import { getCategoriesAndDocuments } from "../services/firebase/firebase";
 
 // Create context for products so we can easily pass products into any part of the app
 export const CategoriesContext = createContext({

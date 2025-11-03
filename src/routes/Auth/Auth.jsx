@@ -1,4 +1,4 @@
-import { AuthPage } from "../../pages/AuthPage/AuthPage.jsx";
+import { AuthPage } from "../../pages/AuthPage/AuthPage";
 import "./Auth.scss";
 
 export function Auth() {

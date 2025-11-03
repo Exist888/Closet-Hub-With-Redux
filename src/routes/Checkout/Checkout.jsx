@@ -1,4 +1,4 @@
-import { CheckoutPage } from "../../pages/CheckoutPage/CheckoutPage.jsx";
+import { CheckoutPage } from "../../pages/CheckoutPage/CheckoutPage";
 import "./Checkout.scss";
 
 export function Checkout() {

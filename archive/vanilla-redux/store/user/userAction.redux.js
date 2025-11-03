@@ -1,5 +1,5 @@
-import { createAction } from "../../utils/reducer/reducerUtils.js";
-import { USER_ACTION_TYPES } from "./userActionTypes.js";
+import { createAction } from "../../utils/reducer/reducerUtils";
+import { USER_ACTION_TYPES } from "./userActionTypes";
 
 // 5) This is the action that replaces "setter functions" we used in React state (use in App.jsx)
 export function setCurrentUser(user) {

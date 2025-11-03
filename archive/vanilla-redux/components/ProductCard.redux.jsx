@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems } from "../../store/cart/cartSelector";
-import { addItemToCart } from "../../store/cart/cartAction.js";
+import { addItemToCart } from "../../store/cart/cartAction";
 import { Button } from "../Button/Button";
 import "./ProductCard.scss";
 

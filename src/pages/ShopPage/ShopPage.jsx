@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector";
-import { ProductCard } from "../../components/ProductCard/ProductCard.jsx";
-import { Spinner } from "../../components/Spinner/Spinner.jsx";
+import { ProductCard } from "../../components/ProductCard/ProductCard";
+import { Spinner } from "../../components/Spinner/Spinner";
 import "./ShopPage.scss";
 
 export function ShopPage() {

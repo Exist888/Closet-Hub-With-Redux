@@ -2,7 +2,7 @@ import { compose, legacy_createStore as createStore, applyMiddleware } from "red
 import { logger } from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { rootReducer } from "./rootReducer.js";
+import { rootReducer } from "./rootReducer";
 
 const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(Boolean);
 

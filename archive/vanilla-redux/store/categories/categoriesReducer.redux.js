@@ -1,4 +1,4 @@
-import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
+import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes";
 
 const INITIAL_STATE = {
     categoryObjectsArray: []

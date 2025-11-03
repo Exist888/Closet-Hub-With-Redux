@@ -1,5 +1,5 @@
-import { CategoryCard } from "../../components/CategoryCard/CategoryCard.jsx";
-import { categories } from "../../data/categories.js";
+import { CategoryCard } from "../../components/CategoryCard/CategoryCard";
+import { categories } from "../../data/categories";
 import "./HomePage.scss";
 
 export function HomePage() {

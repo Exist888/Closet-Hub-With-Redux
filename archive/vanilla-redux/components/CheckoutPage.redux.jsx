@@ -6,7 +6,7 @@ import { selectCartItems,
 import { addItemToCart, 
     removeItemFromCart,
     decrementItem
-} from "../../store/cart/cartAction.js";
+} from "../../store/cart/cartAction";
 import { Button } from "../../components/Button/Button";
 import "./CheckoutPage.scss";
 

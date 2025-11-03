@@ -1,5 +1,5 @@
 import { createContext, useMemo, useCallback, useReducer } from "react";
-import { createAction } from "../utils/reducer/reducerUtils.js";
+import { createAction } from "../utils/reducer/reducerUtils";
 
 export const CartContext = createContext();
 

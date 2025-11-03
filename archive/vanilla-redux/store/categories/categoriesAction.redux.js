@@ -1,5 +1,5 @@
-import { createAction } from "../../utils/reducer/reducerUtils.js";
-import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes.js";
+import { createAction } from "../../utils/reducer/reducerUtils";
+import { CATEGORIES_ACTION_TYPES } from "./categoriesActionTypes";
 
 // Use in App.jsx to update categories state
 export function setCategories(categoryObjectsArray) {

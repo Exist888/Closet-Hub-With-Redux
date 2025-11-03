@@ -4,8 +4,8 @@ import { selectCartTotalPrice } from "../../store/cart/cartSelector";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
-import { Notification } from "../Notification/Notification.jsx";
-import { Spinner } from "../Spinner/Spinner.jsx";
+import { Notification } from "../Notification/Notification";
+import { Spinner } from "../Spinner/Spinner";
 import logo from "../../assets/logo.png";
 import "./PaymentForm.scss";
 

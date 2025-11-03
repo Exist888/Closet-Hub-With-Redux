@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { App } from "./App.jsx";
 import { store, persistor } from "./store/store";
-import { stripePromise } from "./services/stripe/stripe.js";
+import { stripePromise } from "./services/stripe/stripe";
 import "./index.scss";
 
 const root = createRoot(document.getElementById("root"));

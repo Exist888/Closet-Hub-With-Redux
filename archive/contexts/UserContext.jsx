@@ -1,8 +1,8 @@
 // While state management in this file is not complex enough to require useReducer,
 // I am using this file to practice using a reducer before moving on to more complex state management
 import { createContext, useEffect, useReducer } from "react";
-import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../services/firebase/firebase.js";
-import { createAction } from "../utils/reducer/reducerUtils.js";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../services/firebase/firebase";
+import { createAction } from "../utils/reducer/reducerUtils";
 
 export const UserContext = createContext();
 

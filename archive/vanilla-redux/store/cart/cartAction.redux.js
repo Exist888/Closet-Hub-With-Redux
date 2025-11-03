@@ -1,5 +1,5 @@
-import { createAction } from "../../utils/reducer/reducerUtils.js";
-import { CART_ACTION_TYPES } from "./cartActionTypes.js";
+import { createAction } from "../../utils/reducer/reducerUtils";
+import { CART_ACTION_TYPES } from "./cartActionTypes";
 
 // Three utility functions that will be called in action functions below
 function addCartItem(cartItems, productToAdd) {

@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../store/cart/cartSelector";
-import { CartItem } from "../CartItem/CartItem.jsx";
+import { CartItem } from "../CartItem/CartItem";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
 import "./CartDropdown.scss";
 

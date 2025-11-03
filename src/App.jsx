@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./routes/Layout/Layout.jsx";
-import { Home } from "./routes/Home/Home.jsx";
-import { Shop } from "./routes/Shop/Shop.jsx";
-import { Auth } from "./routes/Auth/Auth.jsx";
-import { Checkout } from "./routes/Checkout/Checkout.jsx";
-import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop.jsx";
+import { Layout } from "./routes/Layout/Layout";
+import { Home } from "./routes/Home/Home";
+import { Shop } from "./routes/Shop/Shop";
+import { Auth } from "./routes/Auth/Auth";
+import { Checkout } from "./routes/Checkout/Checkout";
+import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
 import { onAuthStateChangedListener, 
     createUserDocumentFromAuth,
     getCategoriesAndDocuments 

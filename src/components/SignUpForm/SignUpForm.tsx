@@ -4,9 +4,9 @@ import { AuthErrorCodes } from "firebase/auth";
 import type { AuthError } from "firebase/auth";
 import { FormInput } from "../FormInput/FormInput";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
-import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
-import { Notification } from "../Notification/Notification.jsx";
-import { Spinner } from "../Spinner/Spinner.jsx";
+import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator";
+import { Notification } from "../Notification/Notification";
+import { Spinner } from "../Spinner/Spinner";
 import { 
     createAuthUserWithEmailAndPassword, 
     createUserDocumentFromAuth,

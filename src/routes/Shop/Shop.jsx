@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { ShopPage } from "../../pages/ShopPage/ShopPage.jsx";
-import { CategoryPage } from "../../pages/CategoryPage/CategoryPage.jsx";
+import { ShopPage } from "../../pages/ShopPage/ShopPage";
+import { CategoryPage } from "../../pages/CategoryPage/CategoryPage";
 import "./Shop.scss";
 
 export function Shop() {

@@ -9,7 +9,7 @@ import { addItemToCart,
     decrementItem
 } from "../../store/cart/cartSlice"; // FOR TOOLKIT: change import from location
 import { Button, BUTTON_CLASSES } from "../../components/Button/Button";
-import { PaymentForm } from "../../components/PaymentForm/PaymentForm.jsx";
+import { PaymentForm } from "../../components/PaymentForm/PaymentForm";
 import "./CheckoutPage.scss";
 
 export function CheckoutPage() {
