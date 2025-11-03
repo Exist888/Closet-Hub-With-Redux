@@ -19,7 +19,7 @@ import {
     getDocs,
 } from "firebase/firestore";
 // For TS: Firebase's built-in types - User (including uid), NextOrObserver, & DocumentReference
-import type { User as FirebaseUser, NextOrObserver } from "firebase/auth";
+import type { User as FirebaseUser, NextOrObserver, UserCredential } from "firebase/auth";
 import type { DocumentReference } from "firebase/firestore";
 import type { CategoryObject } from "../../types/types";
 
@@ -137,7 +137,9 @@ export async function createUserDocumentFromAuth(
 }
 
 // For TS: assign types to parameters in next two functions
-export async function createAuthUserWithEmailAndPassword(email: string, password: string) {
+export async function createAuthUserWithEmailAndPassword(
+    email: string, password: string
+): Promise<UserCredential | void> {
     if (!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password);
 }

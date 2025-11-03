@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { FormInput } from "../FormInput/FormInput.jsx";
+import type { FormEvent, ChangeEvent } from "react";
+import { AuthErrorCodes } from "firebase/auth";
+import type { AuthError } from "firebase/auth";
+import { FormInput } from "../FormInput/FormInput";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
@@ -14,11 +17,11 @@ const defaultFormFields = {
 
 export function SignInForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { email, password } = formFields;
 
-    function handleChange(event) {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         setErrorMsg(null);
         // Destructure input name and value when input changes
         const { name, value } = event.target;
@@ -30,7 +33,7 @@ export function SignInForm() {
         setFormFields(defaultFormFields);
     }
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true);
 
@@ -38,7 +41,7 @@ export function SignInForm() {
             await signInUserWithEmailAndPassword(email, password);
             resetFormFields();
         } catch(error) {
-            if (error.code === "auth/invalid-credential") {
+            if ((error as AuthError).code === AuthErrorCodes.INVALID_APP_CREDENTIAL) {
                 setErrorMsg("Invalid credentials. Please double check your inputs, or create an account.");
             } else {
                 setErrorMsg("Credentials not found. Please try again.");

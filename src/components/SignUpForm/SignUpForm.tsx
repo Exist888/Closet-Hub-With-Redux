@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { FormInput } from "../FormInput/FormInput.jsx";
+import type { FormEvent, ChangeEvent } from "react";
+import { AuthErrorCodes } from "firebase/auth";
+import type { AuthError } from "firebase/auth";
+import { FormInput } from "../FormInput/FormInput";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { ButtonSeparator } from "../ButtonSeparator/ButtonSeparator.jsx";
 import { Notification } from "../Notification/Notification.jsx";
@@ -20,11 +23,11 @@ const defaultFormFields = {
 
 export function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const { displayName, email, password, confirmPassword } = formFields;
 
-    function handleChange(event) {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         setErrorMsg(null);
         // Destructure input name and value when input changes
         const { name, value } = event.target;
@@ -36,7 +39,7 @@ export function SignUpForm() {
         setFormFields(defaultFormFields);
     }
 
-    async function handleSubmit(event) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true);
         
@@ -48,17 +51,19 @@ export function SignUpForm() {
 
         try {
             const response = await createAuthUserWithEmailAndPassword(email, password);
+            if (!response) return;
             await createUserDocumentFromAuth(response.user, { displayName });
             resetFormFields();
         } catch (error) {
-            if (error.code === "auth/email-already-in-use") {
+            if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 setErrorMsg("Cannot create account. Email already in use.")
             } else {
                 setErrorMsg("Error creating account. Please try again or continue with Google instead.")
             }
+        } finally {
+            // Move setIsLoading(false) into finally block to ensure it runs even on an early return
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     }
 
     async function signInWithGoogle() {

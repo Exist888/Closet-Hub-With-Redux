@@ -1,5 +1,5 @@
 // FOR TOOLKIT: replace vanilla redux imports with configureStore import from toolkit
-// For JS: import Middleware type
+// For TS: import Middleware type
 import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { logger } from "redux-logger";
 import { persistStore, persistReducer,
