@@ -10,9 +10,10 @@ export enum BUTTON_CLASSES {
     checkout= "checkout"
 }
 
-// Use intersection to combine built-in button attributes with custom props
+// Use intersection ("&") to combine built-in button attributes with custom props
 // Built-in attributes allow support for standard props like onClick, type, aria-label, etc
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+    // children is of type ReactNode, which represents any value that React can render
     children: ReactNode
     buttonClass?: BUTTON_CLASSES
     isLoading?: boolean

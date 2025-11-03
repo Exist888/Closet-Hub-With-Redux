@@ -7,9 +7,6 @@ import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged,
-    // For TS: Firebase's built-in types - User (including uid) & NextOrObserver
-    User as FirebaseUser,
-    NextOrObserver
 } from "firebase/auth";
 import { 
     getFirestore, 
@@ -20,9 +17,10 @@ import {
     writeBatch, 
     query,
     getDocs,
-    // For TS: Firebase's built-in type - DocumentReference
-    DocumentReference
 } from "firebase/firestore";
+// For TS: Firebase's built-in types - User (including uid), NextOrObserver, & DocumentReference
+import type { User as FirebaseUser, NextOrObserver } from "firebase/auth";
+import type { DocumentReference } from "firebase/firestore";
 import type { CategoryObject } from "../../types/types";
 
 // Initialize Firebase app with .env variables
