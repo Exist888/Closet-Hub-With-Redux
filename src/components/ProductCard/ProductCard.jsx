@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { addItemToCart } from "../../store/cart/cartSlice"; // FOR TOOLKIT: change import from location
+import { addItemToCart } from "../../store/cart/cartSlice";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
 import { Notification } from "../../components/Notification/Notification";
 import "./ProductCard.scss";

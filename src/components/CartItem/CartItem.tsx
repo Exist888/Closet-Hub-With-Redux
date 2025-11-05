@@ -1,6 +1,21 @@
+import { JSX, memo } from "react";
+
 import "./CartItem.scss";
 
-export function CartItem({ cartItem }) {
+type CartItem = {
+    imageUrl: string,
+    price: number,
+    name: string,
+    quantity: number
+}
+
+type CartItemProps = {
+    cartItem: CartItem
+}
+
+// Memoize CartItem to prevent re-rendering unchanged items when the cart updates 
+// Doing so improves performance for large carts
+export const CartItem = memo(({ cartItem }: CartItemProps): JSX.Element => {
     const { imageUrl, price, name, quantity } = cartItem;
 
     return (
@@ -12,4 +27,4 @@ export function CartItem({ cartItem }) {
             </div>
         </article>
     );
-}
+});

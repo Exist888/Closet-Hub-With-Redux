@@ -1,3 +1,5 @@
+// NOTE: In actual app, create and memoize a CheckoutItem component for better performance
+// See CartItem component as example
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCartItems, 
@@ -7,7 +9,7 @@ import { selectCartItems,
 import { addItemToCart, 
     removeItemFromCart,
     decrementItem
-} from "../../store/cart/cartSlice"; // FOR TOOLKIT: change import from location
+} from "../../store/cart/cartSlice";
 import { Button, BUTTON_CLASSES } from "../../components/Button/Button";
 import { PaymentForm } from "../../components/PaymentForm/PaymentForm";
 import "./CheckoutPage.scss";
