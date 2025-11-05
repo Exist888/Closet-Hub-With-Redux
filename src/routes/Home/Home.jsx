@@ -1,7 +1,7 @@
 import { HomePage } from "../../pages/HomePage/HomePage";
 import "./Home.scss";
 
-export function Home() {
+export default function Home() {
     return (
         <HomePage />
     );

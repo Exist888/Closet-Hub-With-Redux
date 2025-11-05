@@ -1,12 +1,8 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, lazy, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./routes/Layout/Layout";
-import { Home } from "./routes/Home/Home";
-import { Shop } from "./routes/Shop/Shop";
-import { Auth } from "./routes/Auth/Auth";
-import { Checkout } from "./routes/Checkout/Checkout";
 import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
+import { Spinner } from "./components/Spinner/Spinner";
 import { onAuthStateChangedListener, 
     createUserDocumentFromAuth,
     getCategoriesAndDocuments 
@@ -14,6 +10,13 @@ import { onAuthStateChangedListener,
 import { setCurrentUser } from "./store/user/userSlice"; // FOR TOOLKIT: import action from slice file
 import { setCategories, setIsLoading } from "./store/categories/categoriesSlice"; // FOR TOOLKIT: import from slice
 import "./App.scss";
+
+// Implement lazy loading for routes to only bundle a page once the user needs to see it
+const Layout = lazy(() => import("./routes/Layout/Layout"));
+const Home = lazy(() => import("./routes/Home/Home"));
+const Shop = lazy(() => import("./routes/Shop/Shop"));
+const Auth = lazy(() => import("./routes/Auth/Auth"));
+const Checkout = lazy(() => import("./routes/Checkout/Checkout"));
 
 export function App() {
     const dispatch = useDispatch();
@@ -52,14 +55,16 @@ export function App() {
     return (
         <Fragment>
             <ScrollToTop />
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="shop/*" element={<Shop />} />
-                    <Route path="auth" element={<Auth />} />
-                    <Route path="checkout" element={<Checkout />} />
-                </Route>
-            </Routes>
+            <Suspense fallback={<Spinner />}>
+                <Routes>
+                    <Route path="/" element={<Layout />} >
+                        <Route index element={<Home />} />
+                        <Route path="shop/*" element={<Shop />} />
+                        <Route path="auth" element={<Auth />} />
+                        <Route path="checkout" element={<Checkout />} />
+                    </Route>
+                </Routes>
+            </Suspense>
         </Fragment>
     );
 }

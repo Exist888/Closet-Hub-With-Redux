@@ -1,7 +1,7 @@
 import { CheckoutPage } from "../../pages/CheckoutPage/CheckoutPage";
 import "./Checkout.scss";
 
-export function Checkout() {
+export default function Checkout() {
     return (
         <CheckoutPage />
     );

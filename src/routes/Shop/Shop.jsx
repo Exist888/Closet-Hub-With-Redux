@@ -3,7 +3,7 @@ import { ShopPage } from "../../pages/ShopPage/ShopPage";
 import { CategoryPage } from "../../pages/CategoryPage/CategoryPage";
 import "./Shop.scss";
 
-export function Shop() {
+export default function Shop() {
     return (
         <Routes>
             <Route index element={<ShopPage />} />

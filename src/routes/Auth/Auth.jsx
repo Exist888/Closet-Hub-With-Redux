@@ -1,7 +1,7 @@
 import { AuthPage } from "../../pages/AuthPage/AuthPage";
 import "./Auth.scss";
 
-export function Auth() {
+export default function Auth() {
     return (
         <AuthPage />
     );
