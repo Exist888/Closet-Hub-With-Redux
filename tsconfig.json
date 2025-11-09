@@ -19,7 +19,6 @@
   },
   "include": [
     "src", 
-    "src/types/custom.d.ts", 
     "archive/vanilla-redux/utils", 
     "archive/vanilla-redux/store/middleware"
   ]

@@ -1,6 +1,7 @@
+import { JSX } from "react";
 import "./ButtonSeparator.scss";
 
-export function ButtonSeparator() {
+export function ButtonSeparator(): JSX.Element {
     return (
         <div className="button-separator">
             <div className="line"></div>
