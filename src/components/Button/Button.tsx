@@ -14,7 +14,7 @@ export enum BUTTON_CLASSES {
 // Built-in attributes allow support for standard props like onClick, type, aria-label, etc
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     // children is of type ReactNode, which represents any value that React can render
-    children: ReactNode
+    children?: ReactNode
     buttonClass?: BUTTON_CLASSES
     isLoading?: boolean
 }
