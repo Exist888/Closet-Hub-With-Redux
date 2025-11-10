@@ -128,7 +128,11 @@ export async function createUserDocumentFromAuth(
                 ...additionalInfo
             });
         } catch (error) {
-            console.error("Error creating the user.");
+            if (error instanceof Error) {
+                if (import.meta.env.DEV) {
+                    console.error("Error creating the user:", error);
+                }
+            }
         }
     }
 
@@ -144,16 +148,18 @@ export async function createAuthUserWithEmailAndPassword(
     return await createUserWithEmailAndPassword(auth, email, password);
 }
 
-export async function signInUserWithEmailAndPassword(email: string, password:string) {
+export async function signInUserWithEmailAndPassword(
+    email: string, password:string
+): Promise<UserCredential | void> {
     if (!email || !password) return;
     return await signInWithEmailAndPassword(auth, email, password);
 }
 
-export async function signOutUser() {
+export async function signOutUser(): Promise<void> {
     await signOut(auth);
 }
 
 // FOR TS: assign TS union type to callback to allow for next (with user) or observer (for complete or error)
 export function onAuthStateChangedListener(callback: NextOrObserver<FirebaseUser>) {
-    onAuthStateChanged(auth, callback);
+    return onAuthStateChanged(auth, callback);
 }
