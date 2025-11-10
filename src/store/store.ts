@@ -46,6 +46,8 @@ export const store = configureStore({
 export const persistor = persistStore(store);
 
 // FOR TS: Define type for RootState to assign to state in selectors
+// Use in store/hooks and in selectors to type global state
 export type RootState = ReturnType<typeof store.getState>;
 // FOR TS: Define type for dipatch to ensure type safety for dispatching in components
+// Use in store/hooks to type reusable dispatches
 export type AppDispatch = typeof store.dispatch;

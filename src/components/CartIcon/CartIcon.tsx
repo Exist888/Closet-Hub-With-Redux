@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import type { JSX, Ref } from "react";
-import { useSelector } from "react-redux";
+// FOR TS: import custom typed selector hook
+import { useAppSelector } from "../../store/hooks"; 
 import { selectCartCount } from "../../store/cart/cartSelector";
 // Import svg as react component so it can be styled
 // FOR TS: declare module for *.svg?react in src/types/custom.d.ts
@@ -17,7 +18,7 @@ export function CartIconInner({
     toggleDropdown, 
     isDropdownClicked 
 }: CartIconInnerProps, ref: Ref<HTMLButtonElement>): JSX.Element {
-    const cartCount = useSelector(selectCartCount);
+    const cartCount = useAppSelector(selectCartCount);
 
     return (
         <button 
