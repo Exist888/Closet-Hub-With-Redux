@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, test, expect } from "vitest";
 import { Button, BUTTON_CLASSES } from "./Button";
 
-describe("Button", () => {
+describe("Button tests", () => {
     describe("ensure button exists", () => {
         test("exists", () => {
             render(<Button />);
