@@ -4,13 +4,15 @@ import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import type { RenderOptions } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
+import type { EnhancedStore } from "@reduxjs/toolkit";
 import { rootReducer } from "../store/rootReducer";
 import type { RootState } from "../store/store";
 
 type ExtendedRenderOptions = {
     // Partial type makes all properties of RootState type passed in optional
     preloadedState?: Partial<RootState>,
-    store?: ReturnType<typeof configureStore>,
+    // Ensure store has the shape of RootState so TS can infer its structure in tests
+    store?: EnhancedStore<RootState>,
     // Two options for router type - use memory for testing navigation
     // Use specific strings as types when we only accept a specific string rather than any string
     router?: "browser" | "memory",
@@ -19,7 +21,7 @@ type ExtendedRenderOptions = {
 } & Omit<RenderOptions, "queries">;
 
 // Wrap redux-related components in a new RTK store while testing
-// We avoid using the real store to avoid data leakage
+// We avoid using the real store to prevent data leakage
 export function renderWithProviders(
     // First parameter is the component we will test
     ui: ReactElement, 

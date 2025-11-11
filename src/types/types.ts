@@ -3,7 +3,8 @@ export interface CategoryItem {
     id: number,
     imageUrl: string,
     name: string,
-    price: number
+    price: number,
+    quantity: number
 }
 
 export interface CategoryObject {

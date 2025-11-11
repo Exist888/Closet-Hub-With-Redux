@@ -24,7 +24,7 @@ function LocationDisplay() {
     );
 }
 
-describe("Header test", () => {
+describe("Header tests", () => {
     describe("link behavior", () => {
 
         const linksToTest = [

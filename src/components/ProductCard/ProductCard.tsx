@@ -1,14 +1,20 @@
-import { useState, Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useState, Fragment, JSX } from "react";
+// FOR TS: use custom typed hook for dispatch from src/store/hooks
+import { useAppDispatch } from "../../store/hooks"
 import { addItemToCart } from "../../store/cart/cartSlice";
 import { Button, BUTTON_CLASSES } from "../Button/Button";
-import { Notification } from "../../components/Notification/Notification";
+import { Notification } from "../Notification/Notification";
+import type { CartItem } from "../../types/types"
 import "./ProductCard.scss";
 
-export function ProductCard({ product }) {
-    const [isClicked, setIsClicked] = useState(false);
+type ProductCardProps = {
+    product: CartItem
+}
 
-    const dispatch = useDispatch();
+export function ProductCard({ product }: ProductCardProps): JSX.Element {
+    const [isClicked, setIsClicked] = useState<boolean>(false);
+
+    const dispatch = useAppDispatch();
 
     const { imageUrl, name, price } = product;
 
@@ -32,7 +38,11 @@ export function ProductCard({ product }) {
             )}
             <article className="product-card">
                 <img src={imageUrl} alt={`photo of ${name}`}/>
-                <Button buttonClass={BUTTON_CLASSES.product} onClick={addProductToCart}>
+                <Button 
+                    buttonClass={BUTTON_CLASSES.product} 
+                    onClick={addProductToCart}
+                    aria-label="add to cart"
+                    >
                     <div>
                         <i className="fa-solid fa-cart-plus"></i>
                         <span>Add to cart</span>
