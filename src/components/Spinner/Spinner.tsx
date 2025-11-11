@@ -8,7 +8,7 @@ type SpinnerProps = {
 
 export function Spinner({ children }: SpinnerProps): JSX.Element {
     return (
-        <section className="spinner-container">
+        <section className="spinner-container" data-testid="spinner">
             <article className="spinner"></article>
             {/* Only render span if children prop is present */}
             {children && <span className="spinner-text">{children}</span>}

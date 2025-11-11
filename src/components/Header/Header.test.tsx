@@ -71,7 +71,7 @@ describe("Header tests", () => {
             fireEvent.click(signOutLink);
             expect(signOutUser).toHaveBeenCalled();
         });
-    })
+    });
 
     describe("link display tests", () => {
         test("display sign in and don't display sign out when no user is logged in", () => {
@@ -120,5 +120,5 @@ describe("Header tests", () => {
             const dropdownCtaTextElement = screen.queryByText(/let's go shopping/i);
             expect(dropdownCtaTextElement).toBeNull();
         });
-    })
+    });
 });

@@ -1,4 +1,4 @@
-import { useState, Fragment, JSX } from "react";
+import { useState, useEffect, Fragment, JSX } from "react";
 // FOR TS: use custom typed hook for dispatch from src/store/hooks
 import { useAppDispatch } from "../../store/hooks"
 import { addItemToCart } from "../../store/cart/cartSlice";
@@ -21,12 +21,20 @@ export function ProductCard({ product }: ProductCardProps): JSX.Element {
     // FOR TOOLKIT: pass in one product param into dispatched action (instead of two params for redux)
     function addProductToCart() {
         dispatch(addItemToCart(product));
-
         setIsClicked(true);
-        setTimeout(() => {
-            setIsClicked(false);
-        }, 2000);
     }
+
+    useEffect(() => {
+        let timer: ReturnType <typeof setTimeout>;
+        if (isClicked) {
+            timer = setTimeout(() => {
+                setIsClicked(false);
+            }, 2000);
+        }
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [isClicked]);
 
     // Use a dynamic key to force notification remount so animation restarts on each click
     return (
