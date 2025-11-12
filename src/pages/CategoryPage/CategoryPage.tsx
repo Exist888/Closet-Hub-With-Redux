@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCategories, selectIsLoading } from "../../store/categories/categoriesSelector";
+import { selectCategoriesMap, selectIsLoading } from "../../store/categories/categoriesSelector";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { Spinner } from "../../components/Spinner/Spinner";
 import type { CategoryItem } from "../../types/types"; // FOR TS: to specify type of products array
@@ -20,7 +20,7 @@ export function CategoryPage() {
     const { category } = useParams<CategoryRouteParams>() as CategoryRouteParams;
 
     // Get the transformed categories object (keyed by category title) from Redux store via selector
-    const categoriesObject = useSelector(selectCategories);
+    const categoriesObject = useSelector(selectCategoriesMap);
     // Capture isLoading state from Redux
     const isLoading = useSelector(selectIsLoading);
 

@@ -8,7 +8,7 @@ function selectCategoryReducer(state: RootState): CategoriesState {
 }
 
 // Memoize the array of category objects from Firebase
-const selectCategoryObjectsArray = createSelector(
+export const selectCategoryObjectsArray = createSelector(
     [selectCategoryReducer], 
     (categoriesSlice: CategoriesState) => {
         return categoriesSlice.categoryObjectsArray;
@@ -16,7 +16,7 @@ const selectCategoryObjectsArray = createSelector(
 );
 
 // Memoize the tranformed data
-export const selectCategories = createSelector(
+export const selectCategoriesMap = createSelector(
     [selectCategoryObjectsArray], 
     (categoriesArray: CategoryObject[]): CategoryMap => {
         // Transform categories into an object keyed by lowercase category title for quick lookup

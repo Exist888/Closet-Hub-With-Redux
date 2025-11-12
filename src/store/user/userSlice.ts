@@ -4,14 +4,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { User, UserState } from "../../types/types";
 
-const INITIAL_STATE: UserState = {
+// Set initialState to camel case for more modern convention
+const initialState: UserState = {
     currentUser: null
 };
 
 // FOR TOOLKIT: use createSlice to replace handle name, state, and actions
 export const userSlice = createSlice({
     name: "user",
-    initialState: INITIAL_STATE,
+    initialState: initialState,
     reducers: {
         // FOR TS: PayloadAction will always be of type User
         // This is the same type to which our state (currentUser) is assigned

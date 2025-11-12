@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { CategoryObject, CategoriesState } from "../../types/types";
 
-const INITIAL_STATE: CategoriesState = {
+// Set initialState to camel case for more modern convention
+export const initialState: CategoriesState = {
     categoryObjectsArray: [],
     isLoading: false
 };
@@ -12,7 +13,7 @@ const INITIAL_STATE: CategoriesState = {
 // FOR TOOLKIT: use createSlice to replace handle name, state, and actions
 export const categoriesSlice = createSlice({
     name: "categories",
-    initialState: INITIAL_STATE,
+    initialState: initialState,
     reducers: {
         // FOR TS: PayloadAction will always be of type CategoryObject[]
         // This is the same type to which our state (categoryObjectsArray) is assigned

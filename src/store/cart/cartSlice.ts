@@ -56,13 +56,14 @@ function decrementCartItem(cartItems: CartItem[], productToDecrement: CartItem) 
     return updatedCartItems;
 }
 
-const INITIAL_STATE: CartState = {
+// Set initialState to camel case for more modern convention
+const initialState: CartState = {
     cartItems: [],
 }
 
 export const cartSlice = createSlice({
     name: "cart",
-    initialState: INITIAL_STATE,
+    initialState: initialState,
     reducers: {
         // FOR TS: PayloadAction will always be of type CartItem
         // This is the same type to which our state (cartItems) is assigned
